@@ -7,184 +7,196 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #C8102E; --red-dark: #9B0B22; --red-light: #FF2B4A;
-    --gold: #C9A84C; --gold-light: #F0C96A;
-    --black: #0D0D0D; --dark: #161616; --panel: #1E1E1E; --panel2: #252525;
-    --border: #2E2E2E; --text: #E8E8E8; --muted: #888;
-    --green: #2ECC71; --orange: #F39C12; --blue: #3498DB;
+    --red:#C8102E;--red-light:#FF2B4A;--gold:#C9A84C;--gold-light:#F0C96A;
+    --black:#0D0D0D;--dark:#161616;--panel:#1E1E1E;--panel2:#252525;
+    --border:#2E2E2E;--text:#E8E8E8;--muted:#888;
+    --green:#2ECC71;--orange:#F39C12;--blue:#3498DB;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
 
   /* HEADER */
-  .header { background: var(--dark); border-bottom: 2px solid var(--red); padding: 0 32px; display: flex; align-items: stretch; position: sticky; top: 0; z-index: 100; }
-  .header-brand { display: flex; align-items: center; gap: 16px; padding: 18px 24px 18px 0; border-right: 1px solid var(--border); margin-right: 24px; }
-  .logo-box { width: 40px; height: 40px; background: var(--red); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: white; }
-  .brand-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: white; line-height: 1; }
-  .brand-text p { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
-  .nav-tabs { display: flex; align-items: center; gap: 4px; flex: 1; }
-  .nav-tab { padding: 10px 18px; border: none; background: transparent; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
-  .nav-tab:hover { color: var(--text); }
-  .nav-tab.active { color: var(--gold-light); border-bottom-color: var(--gold); }
-  .fy-badge { margin-left: auto; align-self: center; background: var(--red); color: white; font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; }
+  .header{background:var(--dark);border-bottom:2px solid var(--red);padding:0 32px;display:flex;align-items:stretch;position:sticky;top:0;z-index:100}
+  .header-brand{display:flex;align-items:center;gap:16px;padding:18px 24px 18px 0;border-right:1px solid var(--border);margin-right:24px}
+  .logo-box{width:40px;height:40px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white}
+  .brand-text h1{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:white;line-height:1}
+  .brand-text p{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+  .nav-tabs{display:flex;align-items:center;gap:4px;flex:1}
+  .nav-tab{padding:10px 18px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+  .nav-tab:hover{color:var(--text)}
+  .nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+  .header-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+  .fy-badge{background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;padding:5px 14px;border-radius:2px}
+  .refresh-btn{padding:6px 14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;border-radius:2px;text-transform:uppercase;transition:all .2s}
+  .refresh-btn:hover{border-color:var(--gold);color:var(--gold)}
 
-  /* CONNECTION BANNER */
-  .conn-banner {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 32px; font-size: 12px;
-    background: var(--panel2); border-bottom: 1px solid var(--border);
-  }
-  .conn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); transition: background 0.3s; }
-  .conn-dot.connected { background: var(--green); }
-  .conn-dot.error { background: #FF6B6B; }
-  .conn-text { color: var(--muted); }
-  .conn-url { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); cursor: pointer; text-decoration: underline; }
+  /* STATUS BAR */
+  .status-bar{display:flex;align-items:center;gap:10px;padding:8px 32px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px}
+  .s-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);transition:background .3s}
+  .s-dot.ok{background:var(--green)}
+  .s-dot.err{background:#FF6B6B}
+  .s-dot.loading{background:var(--orange);animation:blink .8s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  .s-text{color:var(--muted)}
+  .s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
 
   /* SETUP MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; display: flex; align-items: center; justify-content: center; }
-  .modal-overlay.hidden { display: none; }
-  .modal { background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 32px; width: 520px; max-width: 90vw; }
-  .modal h2 { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; }
-  .modal p { color: var(--muted); font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
-  .modal ol { color: var(--muted); font-size: 12px; line-height: 2; padding-left: 18px; margin-bottom: 20px; }
-  .modal ol li { margin-bottom: 2px; }
-  .modal ol li strong { color: var(--text); }
-  .url-input { width: 100%; background: var(--panel2); border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; padding: 10px 12px; border-radius: 2px; margin-bottom: 12px; }
-  .url-input:focus { outline: none; border-color: var(--gold); }
-  .modal-btns { display: flex; gap: 10px; }
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:flex;align-items:center;justify-content:center}
+  .modal-overlay.hidden{display:none}
+  .modal{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--gold);padding:32px;width:560px;max-width:92vw}
+  .modal h2{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--gold);margin-bottom:8px}
+  .modal-desc{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:20px}
+  .step-list{list-style:none;counter-reset:steps;margin-bottom:20px}
+  .step-list li{counter-increment:steps;display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:13px;color:var(--muted)}
+  .step-list li::before{content:counter(steps);min-width:22px;height:22px;background:var(--red);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .step-list li strong{color:var(--text)}
+  .step-list li code{font-family:'DM Mono',monospace;font-size:11px;background:var(--panel2);padding:2px 6px;border-radius:2px;color:var(--gold)}
+  .url-input{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 12px;border-radius:2px;margin-bottom:12px}
+  .url-input:focus{outline:none;border-color:var(--gold)}
+  .modal-btns{display:flex;gap:10px}
+  .btn{padding:9px 20px;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;border-radius:2px}
+  .btn-primary{background:var(--red);color:white}
+  .btn-primary:hover{background:var(--red-light)}
+  .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
 
   /* PAGES */
-  .page { display: none; padding: 32px; max-width: 1300px; margin: 0 auto; }
-  .page.active { display: block; }
+  .page{display:none;padding:32px;max-width:1300px;margin:0 auto}
+  .page.active{display:block}
 
   /* SECTION TITLE */
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: white; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-  .section-title::before { content: ''; display: block; width: 4px; height: 28px; background: var(--red); }
+  .sec-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:white;display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .sec-title::before{content:'';display:block;width:4px;height:26px;background:var(--red)}
 
   /* CARDS */
-  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
-  .summary-card { background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--red); padding: 20px; animation: fadeUp 0.4s ease both; }
-  .summary-card:nth-child(2) { animation-delay:.05s; border-top-color:var(--gold); }
-  .summary-card:nth-child(3) { animation-delay:.1s; border-top-color:var(--blue); }
-  .summary-card:nth-child(4) { animation-delay:.15s; border-top-color:var(--green); }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-  .card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
-  .card-value { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: white; margin-bottom: 4px; }
-  .card-sub { font-size: 11px; color: var(--muted); }
-  .card-pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-top: 6px; }
-  .pill-green { background:rgba(46,204,113,.15); color:var(--green); }
-  .pill-red { background:rgba(200,16,46,.15); color:#FF6B6B; }
-  .pill-orange { background:rgba(243,156,18,.15); color:var(--orange); }
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:32px}
+  .card{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--red);padding:20px;animation:fadeUp .4s ease both}
+  .card:nth-child(2){animation-delay:.06s;border-top-color:var(--gold)}
+  .card:nth-child(3){animation-delay:.12s;border-top-color:var(--blue)}
+  .card:nth-child(4){animation-delay:.18s;border-top-color:var(--green)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .c-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px}
+  .c-val{font-family:'DM Mono',monospace;font-size:20px;color:white;margin-bottom:3px}
+  .c-sub{font-size:11px;color:var(--muted)}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;margin-top:6px}
+  .pill-g{background:rgba(46,204,113,.15);color:var(--green)}
+  .pill-r{background:rgba(200,16,46,.15);color:#FF6B6B}
+  .pill-o{background:rgba(243,156,18,.15);color:var(--orange)}
 
   /* PROGRESS */
-  .prog-bar-wrap { margin-top: 8px; }
-  .prog-bar-bg { background: var(--border); height: 5px; border-radius: 3px; overflow: hidden; }
-  .prog-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+  .pbar-bg{background:var(--border);height:5px;border-radius:3px;overflow:hidden;margin-top:8px}
+  .pbar-fill{height:100%;border-radius:3px;transition:width .8s ease}
 
   /* TABLES */
-  .table-wrap { overflow-x: auto; margin-bottom: 32px; }
-  table { width: 100%; border-collapse: collapse; }
-  thead th { background: var(--panel2); padding: 10px 14px; text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 500; }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-  tbody tr:hover { background: rgba(255,255,255,.03); }
-  tbody td { padding: 10px 14px; font-size: 13px; }
-  .td-num { font-family: 'DM Mono', monospace; text-align: right; }
-  .cat-row td { background: var(--panel2); font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 1.5px; color: var(--gold); padding: 8px 14px; }
-  .total-row td { background: rgba(200,16,46,.08); font-weight: 600; font-family: 'DM Mono', monospace; border-top: 1px solid var(--red-dark); }
-  .delta-pos { color:var(--green); font-family:'DM Mono',monospace; font-size:12px; }
-  .delta-neg { color:#FF6B6B; font-family:'DM Mono',monospace; font-size:12px; }
-  .delta-zero { color:var(--muted); font-family:'DM Mono',monospace; font-size:12px; }
-  .note-cell { font-size: 11px; color: var(--muted); max-width: 180px; }
-
-  /* EDITABLE */
-  .editable { background: transparent; border: 1px solid transparent; color: var(--text); font-family: 'DM Mono', monospace; font-size: 13px; text-align: right; width: 130px; padding: 3px 6px; border-radius: 3px; transition: all .15s; cursor: pointer; }
-  .editable:hover { border-color: var(--border); background: var(--panel2); }
-  .editable:focus { outline: none; border-color: var(--gold); background: rgba(201,168,76,.08); }
-  .edit-note { font-size: 10px; color: var(--gold); letter-spacing: .5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .tbl-wrap{overflow-x:auto;margin-bottom:32px}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:var(--panel2);padding:10px 14px;text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500}
+  tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+  tbody tr:hover{background:rgba(255,255,255,.025)}
+  tbody td{padding:10px 14px;font-size:13px}
+  .tn{font-family:'DM Mono',monospace;text-align:right}
+  .cat-row td{background:var(--panel2);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--gold);padding:7px 14px}
+  .tot-row td{background:rgba(200,16,46,.08);font-weight:600;font-family:'DM Mono',monospace;border-top:1px solid rgba(200,16,46,.3)}
+  .dp{color:var(--green);font-family:'DM Mono',monospace;font-size:12px}
+  .dn{color:#FF6B6B;font-family:'DM Mono',monospace;font-size:12px}
+  .dz{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px}
+  .note-c{font-size:11px;color:var(--muted);max-width:200px}
 
   /* BAR CHART */
-  .bar-chart { display: flex; flex-direction: column; gap: 12px; }
-  .bar-row { display: grid; grid-template-columns: 160px 1fr 120px; gap: 12px; align-items: center; }
-  .bar-label { font-size: 12px; color: var(--muted); text-align: right; }
-  .bar-track { background: var(--border); height: 28px; border-radius: 2px; position: relative; overflow: hidden; }
-  .bar-ideal { position: absolute; top:0; left:0; height:100%; background:rgba(52,152,219,.25); border-right:2px solid var(--blue); display:flex; align-items:center; justify-content:flex-end; padding-right:6px; font-size:11px; color:var(--blue); font-family:'DM Mono',monospace; transition:width .8s ease; }
-  .bar-actual { position:absolute; top:6px; left:0; height:16px; border-radius:0 1px 1px 0; transition:width .8s ease; }
-  .bar-val { font-family:'DM Mono',monospace; font-size:12px; color:var(--text); }
+  .bar-chart{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 110px;gap:12px;align-items:center}
+  .bar-lbl{font-size:12px;color:var(--muted);text-align:right}
+  .bar-track{background:var(--border);height:30px;border-radius:2px;position:relative;overflow:hidden}
+  .bar-ideal{position:absolute;top:0;left:0;height:100%;background:rgba(52,152,219,.2);border-right:2px solid var(--blue);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-size:11px;color:var(--blue);font-family:'DM Mono',monospace;transition:width 1s ease}
+  .bar-act{position:absolute;top:7px;left:0;height:16px;border-radius:0 1px 1px 0;transition:width 1s ease}
+  .bar-v{font-family:'DM Mono',monospace;font-size:12px}
 
   /* UNDANGAN */
-  .und-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 32px; }
-  .und-card { background: var(--panel); border: 1px solid var(--border); padding: 20px; }
-  .und-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--gold); margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-  .und-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 13px; }
-  .und-row:last-child { border-bottom: none; }
-  .und-row .label { color: var(--muted); }
-  .und-count { font-family: 'DM Mono', monospace; font-weight: 600; color: white; }
-  .und-total-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0 0; margin-top:8px; border-top:1px solid var(--border); font-size:13px; font-weight:600; }
-  .und-total-row .und-count { color:var(--gold); font-size:18px; }
-  .und-edit { background:transparent; border:1px solid transparent; color:white; font-family:'DM Mono',monospace; font-size:14px; font-weight:600; width:60px; text-align:right; padding:2px 4px; border-radius:3px; cursor:pointer; transition:all .15s; }
-  .und-edit:hover { border-color:var(--border); background:var(--panel2); }
-  .und-edit:focus { outline:none; border-color:var(--gold); background:rgba(201,168,76,.08); }
-
-  /* BUTTONS */
-  .action-bar { display:flex; gap:10px; align-items:center; margin-bottom:20px; flex-wrap:wrap; }
-  .btn { padding:9px 20px; border:none; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all .2s; border-radius:2px; }
-  .btn-primary { background:var(--red); color:white; }
-  .btn-primary:hover { background:var(--red-light); }
-  .btn-ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
-  .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
-  .btn-blue { background:rgba(52,152,219,.2); border:1px solid var(--blue); color:var(--blue); }
-  .btn-blue:hover { background:rgba(52,152,219,.35); }
-  .save-msg { font-size:11px; opacity:0; transition:opacity .3s; }
-  .save-msg.show { opacity:1; }
-  .save-ok { color:var(--green); }
-  .save-err { color:#FF6B6B; }
+  .und-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+  .und-card{background:var(--panel);border:1px solid var(--border);padding:20px}
+  .und-card h3{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  .und-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+  .und-row:last-child{border-bottom:none}
+  .und-row .lbl{color:var(--muted)}
+  .und-n{font-family:'DM Mono',monospace;font-weight:600}
+  .und-tot{display:flex;justify-content:space-between;padding:10px 0 0;margin-top:8px;border-top:1px solid var(--border);font-weight:600}
+  .und-tot .und-n{color:var(--gold);font-size:18px}
 
   /* LOADING */
-  .loading-overlay { position:fixed; inset:0; background:rgba(13,13,13,.92); z-index:998; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
-  .loading-overlay.hidden { display:none; }
-  .spinner { width:36px; height:36px; border:3px solid var(--border); border-top-color:var(--red); border-radius:50%; animation:spin .7s linear infinite; }
-  @keyframes spin { to{transform:rotate(360deg)} }
-  .loading-text { font-family:'Bebas Neue',monospace; font-size:18px; letter-spacing:3px; color:var(--muted); }
+  .load-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:16px}
+  .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .load-txt{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--muted)}
 
-  footer { text-align:center; padding:24px; color:var(--muted); font-size:11px; letter-spacing:1px; border-top:1px solid var(--border); margin-top:40px; }
+  /* EMPTY STATE */
+  .empty{text-align:center;padding:60px 0;color:var(--muted);font-size:13px}
+  .empty-icon{font-size:36px;margin-bottom:12px}
 
-  @media(max-width:700px) {
-    .page { padding: 16px; }
-    .und-grid { grid-template-columns: 1fr; }
-    .bar-row { grid-template-columns: 80px 1fr 80px; }
-    .summary-grid { grid-template-columns: 1fr 1fr; }
-    .header { padding: 0 16px; }
+  /* SETTINGS PANEL (slide in) */
+  .settings-panel{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--panel);border-left:1px solid var(--border);z-index:200;transition:right .3s ease;overflow-y:auto;padding:28px}
+  .settings-panel.open{right:0}
+  .settings-panel h2{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--gold);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+  .close-btn{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+  .close-btn:hover{color:white}
+  .settings-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px;margin-top:16px}
+
+  footer{text-align:center;padding:24px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:40px}
+
+  @media(max-width:700px){
+    .page{padding:16px}
+    .und-grid{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:70px 1fr 80px}
+    .cards{grid-template-columns:1fr 1fr}
+    .header{padding:0 16px}
+    .status-bar{padding:8px 16px}
   }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-overlay" id="loading">
-  <div class="spinner"></div>
-  <div class="loading-text">Memuat data...</div>
-</div>
-
 <!-- SETUP MODAL -->
 <div class="modal-overlay" id="setup-modal">
   <div class="modal">
     <h2>⚙ Setup Google Sheets</h2>
-    <p>Hubungkan dashboard ke Google Sheets Anda melalui Apps Script. Ikuti langkah berikut:</p>
-    <ol>
-      <li>Buka <strong>Google Sheets</strong> baru → beri nama <em>"QCC Dashboard FY26"</em></li>
-      <li>Klik <strong>Extensions → Apps Script</strong></li>
-      <li>Hapus semua kode yang ada, paste isi file <strong>Code.gs</strong> yang sudah disediakan</li>
-      <li>Klik <strong>Deploy → New Deployment</strong></li>
-      <li>Type: <strong>Web App</strong> · Execute as: <strong>Me</strong> · Access: <strong>Anyone</strong></li>
-      <li>Klik <strong>Deploy</strong> → <em>Authorize</em> → Copy URL</li>
-      <li>Paste URL di bawah ini ↓</li>
+    <p class="modal-desc">Dashboard ini membaca data langsung dari Google Sheets Anda. Ikuti langkah berikut untuk menghubungkan:</p>
+    <ol class="step-list">
+      <li>Buat Google Sheets baru — gunakan template yang sudah disediakan bersama file ini (sheet: <strong>BudgetItems</strong>, <strong>Undangan</strong>)</li>
+      <li>Klik <strong>File → Share → Publish to web</strong></li>
+      <li>Pilih tab <strong>BudgetItems</strong> → format <strong>CSV</strong> → klik <strong>Publish</strong> → copy URL</li>
+      <li>Paste URL CSV BudgetItems di bawah</li>
+      <li>Ulangi untuk tab <strong>Undangan</strong></li>
     </ol>
-    <input class="url-input" id="script-url-input" type="text"
-      placeholder="https://script.google.com/macros/s/AKfycb.../exec" />
+    <div class="settings-label">URL CSV — Sheet BudgetItems</div>
+    <input class="url-input" id="url-items" type="text" placeholder="https://docs.google.com/spreadsheets/d/.../pub?gid=...&single=true&output=csv" />
+    <div class="settings-label">URL CSV — Sheet Undangan</div>
+    <input class="url-input" id="url-und" type="text" placeholder="https://docs.google.com/spreadsheets/d/.../pub?gid=...&single=true&output=csv" />
     <div class="modal-btns">
-      <button class="btn btn-primary" onclick="connectSheet()">Hubungkan</button>
-      <button class="btn btn-ghost" onclick="useLocalMode()">Pakai Lokal Saja</button>
+      <button class="btn btn-primary" onclick="connectSheets()">Hubungkan</button>
+      <button class="btn btn-ghost" onclick="loadDemo()">Lihat Demo (data FY25)</button>
     </div>
+  </div>
+</div>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-panel" id="settings-panel">
+  <h2>Pengaturan <button class="close-btn" onclick="toggleSettings()">✕</button></h2>
+  <div class="settings-label">URL CSV — BudgetItems</div>
+  <input class="url-input" id="s-url-items" type="text" placeholder="URL CSV BudgetItems..." />
+  <div class="settings-label">URL CSV — Undangan</div>
+  <input class="url-input" id="s-url-und" type="text" placeholder="URL CSV Undangan..." />
+  <div style="margin-top:16px;display:flex;gap:10px">
+    <button class="btn btn-primary" onclick="saveSettings()">Simpan & Refresh</button>
+    <button class="btn btn-ghost" onclick="toggleSettings()">Batal</button>
+  </div>
+  <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">
+    <div class="settings-label">Interval Auto-Refresh</div>
+    <select id="refresh-interval" onchange="setRefreshInterval(this.value)"
+      style="background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:8px;width:100%;border-radius:2px;font-family:'DM Sans',sans-serif">
+      <option value="0">Manual saja</option>
+      <option value="60">Setiap 1 menit</option>
+      <option value="300" selected>Setiap 5 menit</option>
+      <option value="600">Setiap 10 menit</option>
+    </select>
   </div>
 </div>
 
@@ -199,454 +211,446 @@
   </div>
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('overview',this)">Overview</button>
-    <button class="nav-tab" onclick="showPage('anggaran',this)">Anggaran</button>
+    <button class="nav-tab" onclick="showPage('budget',this)">Anggaran</button>
     <button class="nav-tab" onclick="showPage('realisasi',this)">Realisasi</button>
     <button class="nav-tab" onclick="showPage('undangan',this)">Undangan</button>
   </nav>
-  <div class="fy-badge">FY 2026</div>
+  <div class="header-right">
+    <button class="refresh-btn" onclick="fetchData()">↻ Refresh</button>
+    <button class="refresh-btn" onclick="toggleSettings()">⚙</button>
+    <div class="fy-badge">FY 2026</div>
+  </div>
 </header>
 
-<!-- CONNECTION BANNER -->
-<div class="conn-banner">
-  <div class="conn-dot" id="conn-dot"></div>
-  <span class="conn-text" id="conn-text">Menghubungkan ke Google Sheets...</span>
-  <span class="conn-url" id="conn-url-label" onclick="openSetup()" style="margin-left:auto;">⚙ Ganti URL</span>
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="s-dot" id="s-dot"></div>
+  <span class="s-text" id="s-text">Menghubungkan...</span>
+  <span class="s-time" id="s-time"></span>
 </div>
 
 <!-- PAGE: OVERVIEW -->
 <div class="page active" id="page-overview">
-  <div class="section-title">Overview Budget</div>
-  <div class="summary-grid" id="overview-cards"></div>
-  <div style="margin-bottom:32px;">
-    <div class="section-title" style="font-size:20px;margin-bottom:16px;">Ideal vs Realisasi per Kategori</div>
-    <div class="bar-chart" id="cat-chart"></div>
-  </div>
-  <div class="section-title" style="font-size:20px;margin-bottom:16px;">Ringkasan per Kategori</div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Kategori</th><th class="td-num">Ideal</th><th class="td-num">Realisasi</th><th class="td-num">Selisih</th><th>Status</th></tr></thead>
-      <tbody id="summary-table-body"></tbody>
-    </table>
-  </div>
+  <div class="sec-title">Overview Budget</div>
+  <div class="cards" id="ov-cards"><div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat data...</div></div></div>
+  <div class="sec-title" style="font-size:20px;margin-bottom:16px">Ideal vs Realisasi per Kategori</div>
+  <div class="bar-chart" id="ov-chart"></div>
+  <div class="sec-title" style="font-size:20px;margin-bottom:16px">Ringkasan Kategori</div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Kategori</th><th class="tn">Ideal</th><th class="tn">Realisasi</th><th class="tn">Selisih</th><th>Status</th></tr></thead>
+    <tbody id="ov-tbl"></tbody>
+  </table></div>
 </div>
 
 <!-- PAGE: ANGGARAN -->
-<div class="page" id="page-anggaran">
-  <div class="section-title">Rencana Anggaran (Ideal)</div>
-  <div class="edit-note">✎ Klik angka untuk edit nilai ideal FY26</div>
-  <div class="action-bar">
-    <button class="btn btn-primary" onclick="saveAll()">💾 Simpan ke Sheets</button>
-    <button class="btn btn-ghost" onclick="resetToDefault()">Reset ke FY25</button>
-    <span class="save-msg save-ok" id="save-msg1"></span>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Item</th><th>Qty</th><th class="td-num">Harga Satuan</th><th class="td-num">Total Ideal</th><th>Catatan</th></tr></thead>
-      <tbody id="anggaran-body"></tbody>
-    </table>
-  </div>
+<div class="page" id="page-budget">
+  <div class="sec-title">Rencana Anggaran</div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th>Qty</th><th class="tn">Harga Satuan</th><th class="tn">Total Ideal</th><th>Catatan</th></tr></thead>
+    <tbody id="bgt-tbl"></tbody>
+  </table></div>
 </div>
 
 <!-- PAGE: REALISASI -->
 <div class="page" id="page-realisasi">
-  <div class="section-title">Input Realisasi Aktual</div>
-  <div class="edit-note">✎ Isi kolom Aktual saat pengeluaran sudah terjadi — langsung tersimpan ke Google Sheets</div>
-  <div class="action-bar">
-    <button class="btn btn-primary" onclick="saveAll()">💾 Simpan ke Sheets</button>
-    <button class="btn btn-blue" onclick="loadFromSheet()">↻ Refresh dari Sheets</button>
-    <span class="save-msg save-ok" id="save-msg2"></span>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Item</th><th class="td-num">Ideal</th><th class="td-num">Aktual</th><th class="td-num">Selisih</th><th>% Serap</th></tr></thead>
-      <tbody id="realisasi-body"></tbody>
-    </table>
-  </div>
+  <div class="sec-title">Realisasi Aktual</div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Item</th><th class="tn">Ideal</th><th class="tn">Aktual</th><th class="tn">Selisih</th><th>% Serap</th></tr></thead>
+    <tbody id="real-tbl"></tbody>
+  </table></div>
 </div>
 
 <!-- PAGE: UNDANGAN -->
 <div class="page" id="page-undangan">
-  <div class="section-title">Tracking Undangan &amp; Peserta</div>
-  <div class="edit-note">✎ Klik angka untuk update jumlah peserta FY26</div>
-  <div class="action-bar">
-    <button class="btn btn-primary" onclick="saveAll()">💾 Simpan ke Sheets</button>
-    <span class="save-msg save-ok" id="save-msg3"></span>
-  </div>
+  <div class="sec-title">Undangan &amp; Peserta</div>
   <div class="und-grid" id="und-grid"></div>
-  <div class="summary-card" style="border-top-color:var(--gold);">
-    <div class="card-label">Total Undangan FY26</div>
-    <div style="display:flex;align-items:baseline;gap:12px;">
-      <div class="card-value" id="total-und" style="font-size:36px;color:var(--gold);">—</div>
-      <div class="card-sub">undangan</div>
+  <div class="card" style="border-top-color:var(--gold);animation:none">
+    <div class="c-label">Total Undangan FY26</div>
+    <div style="display:flex;align-items:baseline;gap:12px">
+      <div class="c-val" id="tot-all" style="font-size:38px;color:var(--gold)">—</div>
+      <div class="c-sub">undangan</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;">
-      <div><div class="card-label">Management</div><div class="card-value" id="tot-mgmt" style="font-size:22px;">—</div></div>
-      <div><div class="card-label">Peserta</div><div class="card-value" id="tot-peserta" style="font-size:22px;">—</div></div>
-      <div><div class="card-label">Panitia</div><div class="card-value" id="tot-panitia" style="font-size:22px;">—</div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px">
+      <div><div class="c-label">Management</div><div class="c-val" id="tot-m" style="font-size:22px">—</div></div>
+      <div><div class="c-label">Peserta</div><div class="c-val" id="tot-p" style="font-size:22px">—</div></div>
+      <div><div class="c-label">Panitia</div><div class="c-val" id="tot-n" style="font-size:22px">—</div></div>
     </div>
   </div>
 </div>
 
-<footer>QCC Convention Dashboard FY2026 · PAD PPIC &amp; Warehouse · TMMIN Plant 1 &amp; 2</footer>
+<footer>QCC Convention Dashboard FY2026 · PAD PPIC &amp; Warehouse · TMMIN Plant 1 &amp; 2 · Read-only view</footer>
 
 <script>
-// ══════════════════════════════════════════════════════
-// CONFIG — ganti SCRIPT_URL setelah deploy Apps Script
-// ══════════════════════════════════════════════════════
-let SCRIPT_URL = localStorage.getItem('qcc_script_url') || '';
-let isLocalMode = false;
-
-// ─── DEFAULT DATA (FY25 baseline) ────────────────────
-const DEFAULT_DATA = {
-  items: [
-    {cat:'Reward',   item:'Reward QCC',            qty:1,   price:4500000,  actual:4500000,  note:'Juara 1: 2jt / Juara 2: 1,5jt / Juara 3: 1jt'},
-    {cat:'Reward',   item:'Reward SS',              qty:1,   price:2800000,  actual:2300000,  note:'Juara 1: 1,5jt / Juara 2: 800k / Juara 3: 500k'},
-    {cat:'Reward',   item:'Reward Ownership',       qty:1,   price:750000,   actual:2617360,  note:'Ownership QCC: 500k / SS: 250k'},
-    {cat:'Reward',   item:'Reward Video Entrance',  qty:1,   price:750000,   actual:0,        note:'Video QCC: 500k / SS: 250k'},
-    {cat:'Reward',   item:'Hadiah Kuis',            qty:1,   price:600000,   actual:0,        note:''},
-    {cat:'Reward',   item:'Hadiah CEO',             qty:1,   price:100000,   actual:0,        note:''},
-    {cat:'Reward',   item:'Bingkai Piagam',         qty:6,   price:75000,    actual:429000,   note:''},
-    {cat:'Reward',   item:'Styrofoam',              qty:6,   price:100000,   actual:0,        note:''},
-    {cat:'Konsumsi', item:'Lunch (Prasmanan)',      qty:30,  price:95000,    actual:16054800, note:''},
-    {cat:'Konsumsi', item:'Lunch Box',              qty:200, price:75000,    actual:0,        note:''},
-    {cat:'Konsumsi', item:'Snack',                  qty:230, price:15000,    actual:4147000,  note:''},
-    {cat:'Konsumsi', item:'Coffee Break',           qty:1,   price:1500000,  actual:1500000,  note:''},
-    {cat:'Konsumsi', item:'Buah Management',        qty:6,   price:100000,   actual:0,        note:''},
-    {cat:'Konsumsi', item:'Uang Makan Penjurian',   qty:1,   price:3850000,  actual:4170000,  note:''},
-    {cat:'Konsumsi', item:'Lunch Box Gladi Resik',  qty:30,  price:50000,    actual:2050000,  note:''},
-    {cat:'Perlengkapan', item:'Cetak Spanduk',      qty:3,   price:100000,   actual:75000,    note:''},
-    {cat:'Perlengkapan', item:'Cetak Banner',       qty:3,   price:100000,   actual:170000,   note:''},
-    {cat:'Perlengkapan', item:'Backdrop',           qty:1,   price:500000,   actual:131500,   note:''},
-    {cat:'Perlengkapan', item:'Photobooth',         qty:1,   price:3000000,  actual:600000,   note:''},
-    {cat:'Perlengkapan', item:'Dekorasi',           qty:1,   price:5000000,  actual:3430000,  note:''},
-    {cat:'Perlengkapan', item:'Kaos Panitia',       qty:76,  price:140000,   actual:11300000, note:'Advisor – Sekretaris Juri'},
-    {cat:'Perlengkapan', item:'Sewa Kursi Peserta', qty:150, price:9000,     actual:1134000,  note:''},
-    {cat:'Perlengkapan', item:'Round Table',        qty:4,   price:1000000,  actual:1600000,  note:''},
-    {cat:'Perlengkapan', item:'Overtime Supporting',qty:2,   price:500000,   actual:1954584,  note:''},
-  ],
-  undangan: {
-    mgmt:    {dh:1, ddh:1, manager:8, am:12},
-    peserta: {qcc_lolos:54, ss_lolos:20, qcc_tidak:26, ss_tidak:11},
-    panitia: {inti:5, seksi:32, juri:12, sekjuri:3}
-  }
+// ══════════════════════════════════════════════════════════
+// CONFIG — diisi otomatis dari modal setup, tersimpan di localStorage
+// ══════════════════════════════════════════════════════════
+let CFG = {
+  urlItems: localStorage.getItem('qcc_url_items') || '',
+  urlUnd:   localStorage.getItem('qcc_url_und')   || '',
+  interval: parseInt(localStorage.getItem('qcc_interval') || '300')
 };
 
-let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+let appData = { items:[], undangan:{} };
+let refreshTimer = null;
 
-// ─── HELPERS ─────────────────────────────────────────
-const fmt = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
-const fmtS = n => { if(n>=1000000) return 'Rp'+(n/1000000).toFixed(1)+'jt'; if(n>=1000) return 'Rp'+(n/1000).toFixed(0)+'rb'; return 'Rp'+n; };
-const getIdeal = d => d.qty * d.price;
+// ─── HELPERS ─────────────────────────────────────────────
+const fmt  = n => 'Rp' + Math.round(n||0).toLocaleString('id-ID');
+const fmtS = n => { n=n||0; if(n>=1000000) return 'Rp'+(n/1000000).toFixed(1)+'jt'; if(n>=1000) return 'Rp'+(n/1000).toFixed(0)+'rb'; return 'Rp'+n; };
 
 function getCatTotals() {
-  const c = {};
-  appData.items.forEach(d => {
+  const c={};
+  (appData.items||[]).forEach(d=>{
     if(!c[d.cat]) c[d.cat]={ideal:0,actual:0};
-    c[d.cat].ideal += getIdeal(d);
-    c[d.cat].actual += d.actual;
+    c[d.cat].ideal  += (d.qty*d.price)||0;
+    c[d.cat].actual += d.actual||0;
   });
   return c;
 }
 
-// ─── GOOGLE SHEETS API ───────────────────────────────
-async function sheetFetch(params) {
-  if (!SCRIPT_URL || isLocalMode) return null;
-  const url = SCRIPT_URL + '?' + new URLSearchParams(params).toString();
-  try {
-    const res = await fetch(url);
-    return await res.json();
-  } catch(e) {
-    console.error('Sheet fetch error:', e);
-    return null;
+// ─── SETUP / SETTINGS ────────────────────────────────────
+function connectSheets() {
+  const u1=document.getElementById('url-items').value.trim();
+  const u2=document.getElementById('url-und').value.trim();
+  if(!u1||!u2){alert('Kedua URL harus diisi Pak.');return;}
+  CFG.urlItems=u1; CFG.urlUnd=u2;
+  localStorage.setItem('qcc_url_items',u1);
+  localStorage.setItem('qcc_url_und',u2);
+  document.getElementById('setup-modal').classList.add('hidden');
+  fetchData();
+}
+
+function saveSettings() {
+  const u1=document.getElementById('s-url-items').value.trim();
+  const u2=document.getElementById('s-url-und').value.trim();
+  if(u1){CFG.urlItems=u1;localStorage.setItem('qcc_url_items',u1);}
+  if(u2){CFG.urlUnd=u2;  localStorage.setItem('qcc_url_und',u2);}
+  toggleSettings();
+  fetchData();
+}
+
+function toggleSettings(){
+  const p=document.getElementById('settings-panel');
+  const open=p.classList.toggle('open');
+  if(open){
+    document.getElementById('s-url-items').value=CFG.urlItems;
+    document.getElementById('s-url-und').value=CFG.urlUnd;
+    document.getElementById('refresh-interval').value=CFG.interval;
   }
 }
 
-async function loadFromSheet() {
-  if (!SCRIPT_URL || isLocalMode) { setConn('local'); renderAll(); return; }
-  showLoading(true);
-  const data = await sheetFetch({ action: 'getData' });
-  showLoading(false);
-  if (!data || data.error) {
-    setConn('error', data?.error || 'Gagal konek');
-    // fallback ke localStorage
-    const local = localStorage.getItem('qcc_fy26_data');
-    if (local) appData = JSON.parse(local);
-  } else {
-    setConn('connected');
-    if (data.isEmpty) {
-      // Sheet baru → isi dengan default, langsung save
-      appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-      await pushToSheet();
-    } else {
-      appData.items = data.items;
-      if (data.undangan && Object.keys(data.undangan).length > 0)
-        appData.undangan = data.undangan;
+function setRefreshInterval(val){
+  CFG.interval=parseInt(val);
+  localStorage.setItem('qcc_interval',val);
+  startAutoRefresh();
+}
+
+function startAutoRefresh(){
+  if(refreshTimer) clearInterval(refreshTimer);
+  if(CFG.interval>0) refreshTimer=setInterval(fetchData,CFG.interval*1000);
+}
+
+// ─── DEMO DATA ────────────────────────────────────────────
+function loadDemo(){
+  document.getElementById('setup-modal').classList.add('hidden');
+  appData = getDemoData();
+  setStatus('demo','Data demo FY25 — hubungkan ke Google Sheets untuk data live');
+  renderAll();
+}
+
+function getDemoData(){
+  return {
+    items:[
+      {cat:'Reward',   item:'Reward QCC',            qty:1,   price:4500000,  actual:4500000,  note:'Juara 1: 2jt / J2: 1,5jt / J3: 1jt'},
+      {cat:'Reward',   item:'Reward SS',              qty:1,   price:2800000,  actual:2300000,  note:'Juara 1: 1,5jt / J2: 800k / J3: 500k'},
+      {cat:'Reward',   item:'Reward Ownership',       qty:1,   price:750000,   actual:2617360,  note:'QCC: 500k / SS: 250k'},
+      {cat:'Reward',   item:'Reward Video Entrance',  qty:1,   price:750000,   actual:0,        note:'QCC: 500k / SS: 250k'},
+      {cat:'Reward',   item:'Hadiah Kuis',            qty:1,   price:600000,   actual:0,        note:''},
+      {cat:'Reward',   item:'Hadiah CEO',             qty:1,   price:100000,   actual:0,        note:''},
+      {cat:'Reward',   item:'Bingkai Piagam',         qty:6,   price:75000,    actual:429000,   note:''},
+      {cat:'Reward',   item:'Styrofoam',              qty:6,   price:100000,   actual:0,        note:''},
+      {cat:'Konsumsi', item:'Lunch Prasmanan',        qty:30,  price:95000,    actual:16054800, note:''},
+      {cat:'Konsumsi', item:'Lunch Box',              qty:200, price:75000,    actual:0,        note:''},
+      {cat:'Konsumsi', item:'Snack',                  qty:230, price:15000,    actual:4147000,  note:''},
+      {cat:'Konsumsi', item:'Coffee Break',           qty:1,   price:1500000,  actual:1500000,  note:''},
+      {cat:'Konsumsi', item:'Buah Management',        qty:6,   price:100000,   actual:0,        note:''},
+      {cat:'Konsumsi', item:'Uang Makan Penjurian',   qty:1,   price:3850000,  actual:4170000,  note:''},
+      {cat:'Konsumsi', item:'Lunch Box Gladi Resik',  qty:30,  price:50000,    actual:2050000,  note:''},
+      {cat:'Perlengkapan',item:'Cetak Spanduk',       qty:3,   price:100000,   actual:75000,    note:''},
+      {cat:'Perlengkapan',item:'Cetak Banner',        qty:3,   price:100000,   actual:170000,   note:''},
+      {cat:'Perlengkapan',item:'Backdrop',            qty:1,   price:500000,   actual:131500,   note:''},
+      {cat:'Perlengkapan',item:'Photobooth',          qty:1,   price:3000000,  actual:600000,   note:''},
+      {cat:'Perlengkapan',item:'Dekorasi',            qty:1,   price:5000000,  actual:3430000,  note:''},
+      {cat:'Perlengkapan',item:'Kaos Panitia',        qty:76,  price:140000,   actual:11300000, note:'Advisor – Sekjuri'},
+      {cat:'Perlengkapan',item:'Sewa Kursi',          qty:150, price:9000,     actual:1134000,  note:''},
+      {cat:'Perlengkapan',item:'Round Table',         qty:4,   price:1000000,  actual:1600000,  note:''},
+      {cat:'Perlengkapan',item:'Overtime Supporting', qty:2,   price:500000,   actual:1954584,  note:''},
+    ],
+    undangan:{
+      mgmt:   [{label:'DH',val:1},{label:'DDH',val:1},{label:'Manager',val:8},{label:'AM (excl. juri)',val:12}],
+      peserta:[{label:'QCC Lolos',val:54},{label:'SS Lolos',val:20},{label:'QCC Tidak Lolos',val:26},{label:'SS Tidak Lolos',val:11}],
+      panitia:[{label:'Panitia Inti',val:5},{label:'Panitia Seksi',val:32},{label:'Juri',val:12},{label:'Sekretaris Juri',val:3}],
     }
-  }
-  renderAll();
+  };
 }
 
-async function pushToSheet() {
-  if (!SCRIPT_URL || isLocalMode) {
-    localStorage.setItem('qcc_fy26_data', JSON.stringify(appData));
-    return { ok: true, local: true };
+// ─── FETCH FROM SHEETS ────────────────────────────────────
+async function fetchData() {
+  if(!CFG.urlItems || !CFG.urlUnd) return;
+  setStatus('loading','Memuat data dari Google Sheets...');
+
+  try {
+    const [csvItems, csvUnd] = await Promise.all([
+      fetchCSV(CFG.urlItems),
+      fetchCSV(CFG.urlUnd)
+    ]);
+    appData.items    = parseItems(csvItems);
+    appData.undangan = parseUndangan(csvUnd);
+    const now = new Date().toLocaleTimeString('id-ID');
+    setStatus('ok', 'Data live dari Google Sheets');
+    document.getElementById('s-time').textContent = 'Update: ' + now;
+    renderAll();
+  } catch(e) {
+    setStatus('err', 'Gagal memuat — ' + e.message);
   }
-  const r1 = await sheetFetch({ action:'saveItems',    items: JSON.stringify(appData.items) });
-  const r2 = await sheetFetch({ action:'saveUndangan', undangan: JSON.stringify(appData.undangan) });
-  // also save locally as cache
-  localStorage.setItem('qcc_fy26_data', JSON.stringify(appData));
-  return r1?.ok && r2?.ok ? { ok:true } : { ok:false };
 }
 
-async function saveAll() {
-  const res = await pushToSheet();
-  const msg = res?.ok
-    ? (isLocalMode ? '✓ Tersimpan (lokal)' : '✓ Tersimpan ke Google Sheets')
-    : '✗ Gagal simpan';
-  const cls = res?.ok ? 'save-ok' : 'save-err';
-  ['save-msg1','save-msg2','save-msg3'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) { el.textContent=msg; el.className='save-msg show '+cls; setTimeout(()=>el.classList.remove('show'),3000); }
+async function fetchCSV(url) {
+  // Pakai proxy untuk bypass CORS dari GitHub Pages
+  const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+  const res = await fetch(proxyUrl);
+  if(!res.ok) throw new Error('HTTP ' + res.status);
+  return await res.text();
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h=>h.replace(/"/g,'').trim());
+  return lines.slice(1).map(line=>{
+    const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || [];
+    const obj={};
+    headers.forEach((h,i)=>{ obj[h]=(vals[i]||'').replace(/"/g,'').trim(); });
+    return obj;
+  }).filter(r=>Object.values(r).some(v=>v!==''));
+}
+
+function parseItems(csv) {
+  // Kolom: cat, item, qty, price, actual, note
+  return parseCSV(csv).map(r=>({
+    cat:    r.cat   || r['cat']   || '',
+    item:   r.item  || '',
+    qty:    parseFloat(r.qty)   || 0,
+    price:  parseFloat(r.price) || 0,
+    actual: parseFloat(r.actual)|| 0,
+    note:   r.note  || ''
+  })).filter(r=>r.item);
+}
+
+function parseUndangan(csv) {
+  // Kolom: group, label, val
+  const rows = parseCSV(csv);
+  const result = {};
+  rows.forEach(r=>{
+    const g = (r.group||'').toLowerCase();
+    if(!result[g]) result[g]=[];
+    result[g].push({ label: r.label||r.key||'', val: parseFloat(r.val||r.value)||0 });
   });
-  renderAll();
+  return result;
 }
 
-// ─── CONNECTION STATE ────────────────────────────────
-function setConn(state, msg) {
-  const dot = document.getElementById('conn-dot');
-  const txt = document.getElementById('conn-text');
-  dot.className = 'conn-dot';
-  if (state==='connected') { dot.classList.add('connected'); txt.textContent = '✓ Terhubung ke Google Sheets'; }
-  else if (state==='error') { dot.classList.add('error'); txt.textContent = '✗ ' + (msg||'Koneksi gagal') + ' — mode lokal aktif'; }
-  else { txt.textContent = 'Mode lokal — data disimpan di browser'; }
+// ─── STATUS ──────────────────────────────────────────────
+function setStatus(state, msg) {
+  const dot=document.getElementById('s-dot'), txt=document.getElementById('s-text');
+  dot.className='s-dot';
+  if(state==='ok')      { dot.classList.add('ok');      }
+  else if(state==='err'){ dot.classList.add('err');     }
+  else if(state==='loading'){ dot.classList.add('loading'); }
+  txt.textContent = msg;
 }
 
-function showLoading(v) { document.getElementById('loading').classList.toggle('hidden', !v); }
-
-// ─── SETUP MODAL ─────────────────────────────────────
-function openSetup() { document.getElementById('setup-modal').classList.remove('hidden'); }
-
-function connectSheet() {
-  const url = document.getElementById('script-url-input').value.trim();
-  if (!url.includes('script.google.com')) { alert('URL tidak valid. Pastikan copy dari Apps Script deployment.'); return; }
-  SCRIPT_URL = url;
-  localStorage.setItem('qcc_script_url', url);
-  isLocalMode = false;
-  document.getElementById('setup-modal').classList.add('hidden');
-  loadFromSheet();
-}
-
-function useLocalMode() {
-  isLocalMode = true;
-  document.getElementById('setup-modal').classList.add('hidden');
-  setConn('local');
-  // load from localStorage if exists
-  const local = localStorage.getItem('qcc_fy26_data');
-  if (local) appData = JSON.parse(local);
-  showLoading(false);
-  renderAll();
-}
-
-function resetToDefault() {
-  if(confirm('Reset semua data ke baseline FY25?')) {
-    appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-    saveAll();
-  }
-}
-
-// ─── NAVIGATION ──────────────────────────────────────
-function showPage(name, el) {
+// ─── NAVIGATION ──────────────────────────────────────────
+function showPage(name,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   el.classList.add('active');
 }
 
-// ─── RENDER: OVERVIEW ────────────────────────────────
-function renderOverview() {
-  const ct = getCatTotals();
-  const gi = Object.values(ct).reduce((s,c)=>s+c.ideal,0);
-  const ga = Object.values(ct).reduce((s,c)=>s+c.actual,0);
-  const sisa = gi - ga;
-  const pct = gi>0?(ga/gi*100).toFixed(1):0;
+// ─── RENDER OVERVIEW ─────────────────────────────────────
+function renderOverview(){
+  const ct=getCatTotals();
+  const gi=Object.values(ct).reduce((s,c)=>s+c.ideal,0);
+  const ga=Object.values(ct).reduce((s,c)=>s+c.actual,0);
+  const sisa=gi-ga, pct=gi>0?(ga/gi*100).toFixed(1):0;
 
-  document.getElementById('overview-cards').innerHTML = `
-    <div class="summary-card">
-      <div class="card-label">Total Ideal Budget</div>
-      <div class="card-value">${fmt(gi)}</div>
-      <div class="card-sub">Rencana anggaran FY26</div>
+  document.getElementById('ov-cards').innerHTML=`
+    <div class="card">
+      <div class="c-label">Total Ideal Budget</div>
+      <div class="c-val">${fmt(gi)}</div>
+      <div class="c-sub">Rencana anggaran FY26</div>
     </div>
-    <div class="summary-card">
-      <div class="card-label">Total Realisasi</div>
-      <div class="card-value" style="color:var(--gold)">${fmt(ga)}</div>
-      <div class="card-sub">${pct}% terserap</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div></div>
+    <div class="card">
+      <div class="c-label">Total Realisasi</div>
+      <div class="c-val" style="color:var(--gold)">${fmt(ga)}</div>
+      <div class="c-sub">${pct}% terserap</div>
+      <div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div>
     </div>
-    <div class="summary-card">
-      <div class="card-label">Sisa Anggaran</div>
-      <div class="card-value" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div>
-      <div class="card-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div>
-      <div class="card-pill ${sisa>=0?'pill-green':'pill-red'}">${sisa>=0?'Hemat':'Over'}</div>
+    <div class="card">
+      <div class="c-label">Sisa Anggaran</div>
+      <div class="c-val" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div>
+      <div class="c-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div>
+      <div class="pill ${sisa>=0?'pill-g':'pill-r'}">${sisa>=0?'Hemat':'Over'} ${Math.abs(pct-100).toFixed(1)}%</div>
     </div>
-    <div class="summary-card">
-      <div class="card-label">Kategori Terbesar</div>
-      <div class="card-value" style="font-size:16px;">${Object.entries(ct).sort((a,b)=>b[1].ideal-a[1].ideal)[0][0]}</div>
-      <div class="card-sub">${fmt(Object.entries(ct).sort((a,b)=>b[1].ideal-a[1].ideal)[0][1].ideal)}</div>
+    <div class="card">
+      <div class="c-label">Jumlah Item</div>
+      <div class="c-val">${appData.items.length}</div>
+      <div class="c-sub">Item anggaran terdaftar</div>
     </div>`;
 
-  const maxV = Math.max(...Object.values(ct).map(c=>c.ideal));
-  document.getElementById('cat-chart').innerHTML = Object.entries(ct).map(([cat,v])=>{
+  const maxV=Math.max(...Object.values(ct).map(c=>c.ideal),1);
+  document.getElementById('ov-chart').innerHTML=Object.entries(ct).map(([cat,v])=>{
     const iw=(v.ideal/maxV*100).toFixed(1), aw=(v.actual/maxV*100).toFixed(1);
     return `<div class="bar-row">
-      <div class="bar-label">${cat}</div>
+      <div class="bar-lbl">${cat}</div>
       <div class="bar-track">
         <div class="bar-ideal" style="width:${iw}%">${fmtS(v.ideal)}</div>
-        ${v.actual>0?`<div class="bar-actual" style="width:${aw}%;background:${v.actual>v.ideal?'var(--orange)':'var(--red)'}"></div>`:''}
+        ${v.actual>0?`<div class="bar-act" style="width:${aw}%;background:${v.actual>v.ideal?'var(--orange)':'var(--red)'}"></div>`:''}
       </div>
-      <div class="bar-val">${v.actual>0?fmtS(v.actual):'<span style="color:var(--muted)">—</span>'}</div>
+      <div class="bar-v" style="color:${v.actual>0?'var(--text)':'var(--muted)'}">${v.actual>0?fmtS(v.actual):'—'}</div>
     </div>`;
   }).join('');
 
-  const totalI=Object.values(ct).reduce((s,c)=>s+c.ideal,0);
-  const totalA=Object.values(ct).reduce((s,c)=>s+c.actual,0);
-  document.getElementById('summary-table-body').innerHTML = Object.entries(ct).map(([cat,v])=>{
+  const totI=Object.values(ct).reduce((s,c)=>s+c.ideal,0);
+  const totA=Object.values(ct).reduce((s,c)=>s+c.actual,0);
+  document.getElementById('ov-tbl').innerHTML=Object.entries(ct).map(([cat,v])=>{
     const d=v.ideal-v.actual, p=v.ideal>0?(v.actual/v.ideal*100).toFixed(1):0, has=v.actual>0;
     return `<tr>
       <td><strong>${cat}</strong></td>
-      <td class="td-num">${fmt(v.ideal)}</td>
-      <td class="td-num">${has?fmt(v.actual):'<span style="color:var(--muted)">—</span>'}</td>
-      <td class="td-num ${has?(d>=0?'delta-pos':'delta-neg'):'delta-zero'}">${has?(d>=0?'+':'')+fmt(d):'—'}</td>
-      <td>${has?`<span class="card-pill ${p<=100?'pill-green':'pill-red'}">${p}%</span>`:'<span class="card-pill pill-orange">Pending</span>'}</td>
+      <td class="tn">${fmt(v.ideal)}</td>
+      <td class="tn">${has?fmt(v.actual):'<span style="color:var(--muted)">—</span>'}</td>
+      <td class="tn ${has?(d>=0?'dp':'dn'):'dz'}">${has?(d>=0?'+':'')+fmt(d):'—'}</td>
+      <td>${has?`<span class="pill ${p<=100?'pill-g':'pill-r'}">${p}%</span>`:'<span class="pill pill-o">Pending</span>'}</td>
     </tr>`;
-  }).join('') + `<tr class="total-row">
-    <td>TOTAL</td><td class="td-num">${fmt(totalI)}</td><td class="td-num">${fmt(totalA)}</td>
-    <td class="td-num ${totalI-totalA>=0?'delta-pos':'delta-neg'}">${totalI-totalA>=0?'+':''} ${fmt(totalI-totalA)}</td>
-    <td><span class="card-pill ${totalA/totalI*100<=100?'pill-green':'pill-red'}">${(totalA/totalI*100).toFixed(1)}%</span></td>
+  }).join('')+`<tr class="tot-row">
+    <td>GRAND TOTAL</td><td class="tn">${fmt(totI)}</td><td class="tn">${fmt(totA)}</td>
+    <td class="tn ${totI-totA>=0?'dp':'dn'}">${totI-totA>=0?'+':''} ${fmt(totI-totA)}</td>
+    <td><span class="pill ${totA/totI*100<=100?'pill-g':'pill-r'}">${totI>0?(totA/totI*100).toFixed(1):0}%</span></td>
   </tr>`;
 }
 
-// ─── RENDER: ANGGARAN ────────────────────────────────
-function renderAnggaran() {
+// ─── RENDER ANGGARAN ──────────────────────────────────────
+function renderBudget(){
+  if(!appData.items.length){
+    document.getElementById('bgt-tbl').innerHTML='<tr><td colspan="5"><div class="empty"><div class="empty-icon">📋</div>Belum ada data</div></td></tr>';
+    return;
+  }
   const cats=[...new Set(appData.items.map(d=>d.cat))];
   let html='';
   cats.forEach(cat=>{
     html+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
     appData.items.filter(d=>d.cat===cat).forEach(d=>{
-      const idx=appData.items.indexOf(d);
       html+=`<tr>
         <td>${d.item}</td>
-        <td><input class="editable" style="width:70px;text-align:center;" type="number" value="${d.qty}"
-          onchange="appData.items[${idx}].qty=+this.value;renderAnggaran();renderOverview();"/></td>
-        <td class="td-num"><input class="editable" type="number" value="${d.price}"
-          onchange="appData.items[${idx}].price=+this.value;renderAnggaran();renderOverview();"/></td>
-        <td class="td-num" style="color:var(--gold);font-family:'DM Mono',monospace;">${fmt(d.qty*d.price)}</td>
-        <td class="note-cell">${d.note||'—'}</td>
+        <td style="text-align:center;font-family:'DM Mono',monospace">${d.qty}</td>
+        <td class="tn">${fmt(d.price)}</td>
+        <td class="tn" style="color:var(--gold)">${fmt(d.qty*d.price)}</td>
+        <td class="note-c">${d.note||'—'}</td>
       </tr>`;
     });
     const ct=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
-    html+=`<tr class="total-row"><td>Total ${cat}</td><td></td><td></td><td class="td-num">${fmt(ct)}</td><td></td></tr>`;
+    html+=`<tr class="tot-row"><td>Total ${cat}</td><td></td><td></td><td class="tn">${fmt(ct)}</td><td></td></tr>`;
   });
   const grand=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
-  html+=`<tr class="total-row" style="background:rgba(200,16,46,.15);">
+  html+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)">
     <td colspan="3"><strong>GRAND TOTAL</strong></td>
-    <td class="td-num" style="color:var(--red-light);font-size:15px;">${fmt(grand)}</td><td></td>
+    <td class="tn" style="color:var(--red-light);font-size:15px">${fmt(grand)}</td><td></td>
   </tr>`;
-  document.getElementById('anggaran-body').innerHTML=html;
+  document.getElementById('bgt-tbl').innerHTML=html;
 }
 
-// ─── RENDER: REALISASI ───────────────────────────────
-function renderRealisasi() {
+// ─── RENDER REALISASI ─────────────────────────────────────
+function renderReal(){
+  if(!appData.items.length){
+    document.getElementById('real-tbl').innerHTML='<tr><td colspan="5"><div class="empty"><div class="empty-icon">📊</div>Belum ada data</div></td></tr>';
+    return;
+  }
   const cats=[...new Set(appData.items.map(d=>d.cat))];
   let html='';
   cats.forEach(cat=>{
     html+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
     appData.items.filter(d=>d.cat===cat).forEach(d=>{
-      const idx=appData.items.indexOf(d), ideal=d.qty*d.price, delta=ideal-d.actual;
+      const ideal=d.qty*d.price, delta=ideal-d.actual;
       const pct=d.actual>0&&ideal>0?(d.actual/ideal*100).toFixed(1):null;
       html+=`<tr>
         <td>${d.item}</td>
-        <td class="td-num">${fmt(ideal)}</td>
-        <td class="td-num"><input class="editable" type="number" value="${d.actual||''}" placeholder="0"
-          onchange="appData.items[${idx}].actual=+this.value;renderRealisasi();renderOverview();"/></td>
-        <td class="td-num ${d.actual>0?(delta>=0?'delta-pos':'delta-neg'):'delta-zero'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'—'}</td>
-        <td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px;">
-          <div class="prog-bar-bg" style="width:80px;display:inline-block;">
-            <div class="prog-bar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div>
+        <td class="tn">${fmt(ideal)}</td>
+        <td class="tn" style="${d.actual>0?'color:var(--gold)':'color:var(--muted)'}">${d.actual>0?fmt(d.actual):'—'}</td>
+        <td class="tn ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'—'}</td>
+        <td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px">
+          <div class="pbar-bg" style="width:80px;display:inline-block">
+            <div class="pbar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div>
           </div>
           <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${pct}%</span>
-        </div>`:'<span style="color:var(--muted);font-size:11px;">Pending</span>'}</td>
+        </div>`:'<span style="color:var(--muted);font-size:11px">Pending</span>'}</td>
       </tr>`;
     });
     const ci=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
     const ca=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0);
     const cd=ci-ca;
-    html+=`<tr class="total-row"><td>Total ${cat}</td><td class="td-num">${fmt(ci)}</td>
-      <td class="td-num">${fmt(ca)}</td>
-      <td class="td-num ${cd>=0?'delta-pos':'delta-neg'}">${cd>=0?'+':''} ${fmt(cd)}</td>
-      <td><span class="card-pill ${ca/ci*100<=100?'pill-green':'pill-red'}">${ci>0?(ca/ci*100).toFixed(1):0}%</span></td></tr>`;
+    html+=`<tr class="tot-row"><td>Total ${cat}</td><td class="tn">${fmt(ci)}</td>
+      <td class="tn">${fmt(ca)}</td>
+      <td class="tn ${cd>=0?'dp':'dn'}">${cd>=0?'+':''} ${fmt(cd)}</td>
+      <td><span class="pill ${ca/ci*100<=100?'pill-g':'pill-r'}">${ci>0?(ca/ci*100).toFixed(1):0}%</span></td></tr>`;
   });
   const gi=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
   const ga=appData.items.reduce((s,d)=>s+d.actual,0);
   const gd=gi-ga;
-  html+=`<tr class="total-row" style="background:rgba(200,16,46,.15);">
-    <td><strong>GRAND TOTAL</strong></td>
-    <td class="td-num">${fmt(gi)}</td>
-    <td class="td-num" style="color:var(--gold)">${fmt(ga)}</td>
-    <td class="td-num ${gd>=0?'delta-pos':'delta-neg'}">${gd>=0?'+':''} ${fmt(gd)}</td>
-    <td><span class="card-pill ${ga/gi*100<=100?'pill-green':'pill-red'}">${gi>0?(ga/gi*100).toFixed(1):0}%</span></td>
+  html+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)">
+    <td><strong>GRAND TOTAL</strong></td><td class="tn">${fmt(gi)}</td>
+    <td class="tn" style="color:var(--gold)">${fmt(ga)}</td>
+    <td class="tn ${gd>=0?'dp':'dn'}">${gd>=0?'+':''} ${fmt(gd)}</td>
+    <td><span class="pill ${ga/gi*100<=100?'pill-g':'pill-r'}">${gi>0?(ga/gi*100).toFixed(1):0}%</span></td>
   </tr>`;
-  document.getElementById('realisasi-body').innerHTML=html;
+  document.getElementById('real-tbl').innerHTML=html;
 }
 
-// ─── RENDER: UNDANGAN ────────────────────────────────
-function renderUndangan() {
-  const u=appData.undangan;
-  const f=(g,k)=>`<input class="und-edit" type="number" value="${u[g]?.[k]??0}"
-    onchange="appData.undangan.${g}.${k}=+this.value;renderUndangan();"/>`;
-  const tM=Object.values(u.mgmt||{}).reduce((s,v)=>s+v,0);
-  const tP=Object.values(u.peserta||{}).reduce((s,v)=>s+v,0);
-  const tN=Object.values(u.panitia||{}).reduce((s,v)=>s+v,0);
-  const tot=tM+tP+tN;
-
-  document.getElementById('und-grid').innerHTML=`
-    <div class="und-card"><h3>Management</h3>
-      <div class="und-row"><span class="label">DH</span>${f('mgmt','dh')}</div>
-      <div class="und-row"><span class="label">DDH</span>${f('mgmt','ddh')}</div>
-      <div class="und-row"><span class="label">Manager</span>${f('mgmt','manager')}</div>
-      <div class="und-row"><span class="label">AM (excl. juri)</span>${f('mgmt','am')}</div>
-      <div class="und-total-row"><span>Total</span><span class="und-count">${tM}</span></div>
-    </div>
-    <div class="und-card"><h3>Peserta</h3>
-      <div class="und-row"><span class="label">QCC (Lolos)</span>${f('peserta','qcc_lolos')}</div>
-      <div class="und-row"><span class="label">SS (Lolos)</span>${f('peserta','ss_lolos')}</div>
-      <div class="und-row"><span class="label">QCC (Tidak Lolos)</span>${f('peserta','qcc_tidak')}</div>
-      <div class="und-row"><span class="label">SS (Tidak Lolos)</span>${f('peserta','ss_tidak')}</div>
-      <div class="und-total-row"><span>Total</span><span class="und-count">${tP}</span></div>
-    </div>
-    <div class="und-card"><h3>Panitia</h3>
-      <div class="und-row"><span class="label">Panitia Inti</span>${f('panitia','inti')}</div>
-      <div class="und-row"><span class="label">Panitia Seksi</span>${f('panitia','seksi')}</div>
-      <div class="und-row"><span class="label">Juri</span>${f('panitia','juri')}</div>
-      <div class="und-row"><span class="label">Sekretaris Juri</span>${f('panitia','sekjuri')}</div>
-      <div class="und-total-row"><span>Total</span><span class="und-count">${tN}</span></div>
+// ─── RENDER UNDANGAN ──────────────────────────────────────
+function renderUndangan(){
+  const u=appData.undangan||{};
+  const groups=[
+    {key:'mgmt',   label:'Management'},
+    {key:'peserta',label:'Peserta'},
+    {key:'panitia',label:'Panitia'}
+  ];
+  let totAll=0;
+  document.getElementById('und-grid').innerHTML=groups.map(g=>{
+    const rows=u[g.key]||[];
+    const tot=rows.reduce((s,r)=>s+(r.val||0),0);
+    totAll+=tot;
+    return `<div class="und-card">
+      <h3>${g.label}</h3>
+      ${rows.map(r=>`<div class="und-row"><span class="lbl">${r.label}</span><span class="und-n">${r.val}</span></div>`).join('')}
+      ${rows.length===0?'<div style="color:var(--muted);font-size:12px;text-align:center;padding:12px 0">—</div>':''}
+      <div class="und-tot"><span>Total</span><span class="und-n">${tot}</span></div>
     </div>`;
+  }).join('');
 
-  document.getElementById('total-und').textContent=tot;
-  document.getElementById('tot-mgmt').textContent=tM;
-  document.getElementById('tot-peserta').textContent=tP;
-  document.getElementById('tot-panitia').textContent=tN;
+  const tots=groups.map(g=>(u[g.key]||[]).reduce((s,r)=>s+(r.val||0),0));
+  document.getElementById('tot-all').textContent=totAll;
+  document.getElementById('tot-m').textContent=tots[0];
+  document.getElementById('tot-p').textContent=tots[1];
+  document.getElementById('tot-n').textContent=tots[2];
 }
 
-function renderAll() { renderOverview(); renderAnggaran(); renderRealisasi(); renderUndangan(); }
+function renderAll(){ renderOverview(); renderBudget(); renderReal(); renderUndangan(); }
 
-// ─── INIT ────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  if (!SCRIPT_URL) {
-    showLoading(false);
-    openSetup();
-  } else {
-    loadFromSheet();
+// ─── INIT ─────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  if(CFG.urlItems && CFG.urlUnd){
+    document.getElementById('setup-modal').classList.add('hidden');
+    fetchData();
+    startAutoRefresh();
   }
+  // jika belum ada URL, modal setup tampil otomatis
 });
 </script>
 </body>
