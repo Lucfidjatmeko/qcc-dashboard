@@ -8,7 +8,7 @@
 <style>
   :root{--red:#C8102E;--red-light:#FF2B4A;--gold:#C9A84C;--gold-light:#F0C96A;--black:#0D0D0D;--dark:#161616;--panel:#1E1E1E;--panel2:#252525;--border:#2E2E2E;--text:#E8E8E8;--muted:#888;--green:#2ECC71;--orange:#F39C12;--blue:#3498DB}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+  body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden}
   .header{background:var(--dark);border-bottom:2px solid var(--red);padding:0 24px;display:flex;align-items:stretch;position:sticky;top:0;z-index:100}
   .header-brand{display:flex;align-items:center;gap:14px;padding:13px 20px 13px 0;border-right:1px solid var(--border);margin-right:18px;flex-shrink:0}
   .logo-box{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:white}
@@ -70,25 +70,25 @@
   /* MOBILE CARD VIEW untuk tabel Realisasi & Anggaran */
   .m-card{display:none}
   @media(max-width:580px){
-    .page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}
+    .page{padding:12px}.header{padding:0 12px}.status-bar{padding:7px 12px}
     .brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}
-    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}
+    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 8px;font-size:11px}
     /* sembunyikan tabel biasa di mobile, tampilkan card */
     .tbl-wrap{display:none}
-    .m-card{display:block}
-    .m-cat{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);background:var(--panel2);padding:8px 14px;margin-bottom:2px}
-    .m-item{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--border);padding:12px 14px;margin-bottom:2px}
+    .m-card{display:block;width:100%}
+    .m-cat{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);background:var(--panel2);padding:8px 14px;margin-bottom:2px;width:100%}
+    .m-item{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--border);padding:12px 14px;margin-bottom:2px;width:100%}
     .m-item.over{border-left-color:var(--orange)}
     .m-item.ok{border-left-color:var(--green)}
     .m-item-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px}
-    .m-item-rows{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+    .m-item-rows{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
     .m-kv{display:flex;flex-direction:column}
     .m-k{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:1px}
     .m-v{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
-    .m-tot{background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.3);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .m-tot{background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.3);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;width:100%}
     .m-tot-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:var(--muted)}
     .m-tot-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:600}
-    .m-grand{background:rgba(200,16,46,.15);border:1px solid rgba(200,16,46,.4);padding:14px;margin-top:8px}
+    .m-grand{background:rgba(200,16,46,.15);border:1px solid rgba(200,16,46,.4);padding:14px;margin-top:8px;width:100%}
   }
 </style>
 </head>
@@ -99,7 +99,7 @@
     <div class="logo-box">QCC</div>
     <div class="brand-text">
       <h1>Convention Dashboard</h1>
-      <p>PAD PPIC &amp; Warehouse — TMMIN Karawang</p>
+      <p>Plant Administration Division - Manufacturing &amp; PE Directorate</p>
     </div>
   </div>
   <nav class="nav-tabs">
@@ -160,7 +160,7 @@
     </div>
   </div>
 </div>
-<footer>QCC Convention Dashboard FY2026 &middot; PAD PPIC &amp; Warehouse &middot; TMMIN Plant 1 &amp; 2</footer>
+<footer>QCC Convention Dashboard FY2026 &middot; Plant Administration Division &middot; Manufacturing &amp; PE Directorate</footer>
 
 <script>
 // ── Apps Script URL (relay dari Google Sheets, no CORS issue) ─
