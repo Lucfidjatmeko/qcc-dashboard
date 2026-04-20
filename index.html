@@ -15,7 +15,8 @@
   .logo-box{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:white}
   .brand-text h1{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:white;line-height:1}
   .brand-text p{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-  .nav-tabs{display:flex;align-items:center;flex:1}
+  .nav-tabs{display:flex;align-items:center;flex:1;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-tabs::-webkit-scrollbar{display:none}
   .nav-tab{padding:10px 15px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
   .nav-tab:hover{color:var(--text)}.nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
   .fy-badge{margin-left:auto;align-self:center;background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:4px 12px;border-radius:2px;flex-shrink:0}
@@ -71,10 +72,16 @@
   /* MOBILE CARD VIEW untuk tabel Realisasi & Anggaran */
   .m-card{display:none}
   @media(max-width:580px){
-    .page{padding:12px;max-width:100%}.header{padding:0 12px}.status-bar{padding:7px 12px}
-    .brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}
-    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 8px;font-size:11px}
-    /* hanya sembunyikan tabel di halaman budget & realisasi */
+    .page{padding:12px;max-width:100%}.header{padding:0 10px}
+    .header-brand{padding:10px 12px 10px 0;margin-right:10px;gap:8px}
+    .logo-box{width:30px;height:30px;font-size:13px}
+    .brand-text h1{font-size:13px;letter-spacing:1px}
+    .status-bar{padding:7px 12px}
+    .brand-text p{display:none}
+    .bar-row{grid-template-columns:70px 1fr 65px}
+    .cards{grid-template-columns:1fr 1fr}
+    .nav-tab{padding:10px 10px;font-size:12px}
+    .fy-badge{font-size:12px;padding:3px 8px}
     #page-budget .tbl-wrap{display:none}
     #page-realisasi .tbl-wrap{display:none}
     .m-card{display:block;width:100%}
