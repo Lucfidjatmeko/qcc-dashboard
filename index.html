@@ -67,7 +67,29 @@
   .load-txt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:var(--muted)}
   .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;line-height:2.2}
   footer{text-align:center;padding:20px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:28px}
-  @media(max-width:580px){.page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}.brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}.cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}}
+  /* MOBILE CARD VIEW untuk tabel Realisasi & Anggaran */
+  .m-card{display:none}
+  @media(max-width:580px){
+    .page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}
+    .brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}
+    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}
+    /* sembunyikan tabel biasa di mobile, tampilkan card */
+    .tbl-wrap{display:none}
+    .m-card{display:block}
+    .m-cat{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);background:var(--panel2);padding:8px 14px;margin-bottom:2px}
+    .m-item{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--border);padding:12px 14px;margin-bottom:2px}
+    .m-item.over{border-left-color:var(--orange)}
+    .m-item.ok{border-left-color:var(--green)}
+    .m-item-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px}
+    .m-item-rows{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+    .m-kv{display:flex;flex-direction:column}
+    .m-k{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:1px}
+    .m-v{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
+    .m-tot{background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.3);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .m-tot-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:var(--muted)}
+    .m-tot-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:600}
+    .m-grand{background:rgba(200,16,46,.15);border:1px solid rgba(200,16,46,.4);padding:14px;margin-top:8px}
+  }
 </style>
 </head>
 <body>
@@ -112,6 +134,7 @@
     <thead><tr><th>Item</th><th style="text-align:center">Qty</th><th class="tn">Harga Satuan</th><th class="tn">Total Ideal</th><th>Catatan</th></tr></thead>
     <tbody id="bgt-tbl"></tbody>
   </table></div>
+  <div class="m-card" id="bgt-mobile"></div>
 </div>
 <div class="page" id="page-realisasi">
   <div class="sec-title">Realisasi Aktual</div>
@@ -119,6 +142,7 @@
     <thead><tr><th>Item</th><th class="tn">Ideal</th><th class="tn">Aktual</th><th class="tn">Selisih</th><th>% Serap</th></tr></thead>
     <tbody id="real-tbl"></tbody>
   </table></div>
+  <div class="m-card" id="real-mobile"></div>
 </div>
 <div class="page" id="page-undangan">
   <div class="sec-title">Undangan &amp; Peserta</div>
@@ -319,7 +343,80 @@ function renderUndangan(){
   document.getElementById('tot-n').textContent=tots[2];
 }
 
-function renderAll(){ renderOverview();renderBudget();renderReal();renderUndangan(); }
+function renderAll(){ renderOverview();renderBudget();renderReal();renderUndangan();renderMobileReal();renderMobileBudget(); }
+
+// ── MOBILE CARD: REALISASI ───────────────────────────────────
+function renderMobileReal(){
+  const cats=[...new Set(appData.items.map(d=>d.cat))];
+  let h='';
+  cats.forEach(cat=>{
+    h+=`<div class="m-cat">${cat}</div>`;
+    appData.items.filter(d=>d.cat===cat).forEach(d=>{
+      const ideal=d.qty*d.price,delta=ideal-d.actual;
+      const pct=d.actual>0&&ideal>0?(d.actual/ideal*100).toFixed(1):null;
+      const cls=pct===null?'':(parseFloat(pct)>100?'over':'ok');
+      h+=`<div class="m-item ${cls}">
+        <div class="m-item-name">${d.item}</div>
+        <div class="m-item-rows">
+          <div class="m-kv"><div class="m-k">Ideal</div><div class="m-v">${fmt(ideal)}</div></div>
+          <div class="m-kv"><div class="m-k">Aktual</div><div class="m-v" style="color:${d.actual>0?'var(--gold)':'var(--muted)'}">${d.actual>0?fmt(d.actual):'—'}</div></div>
+          <div class="m-kv"><div class="m-k">Selisih</div><div class="m-v ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'—'}</div></div>
+          <div class="m-kv"><div class="m-k">% Serap</div><div class="m-v">${pct!==null?`<span class="pill ${parseFloat(pct)<=100?'pill-g':'pill-r'}" style="margin:0">${pct}%</span>`:'<span class="pill pill-o" style="margin:0">Pending</span>'}</div></div>
+        </div>
+      </div>`;
+    });
+    const ci=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
+    const ca=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0),cd=ci-ca;
+    h+=`<div class="m-tot">
+      <div class="m-tot-label">Total ${cat}</div>
+      <div style="text-align:right">
+        <div class="m-tot-val" style="color:var(--gold)">${fmt(ca)}</div>
+        <div style="font-size:10px;color:${cd>=0?'var(--green)':'#FF6B6B'};font-family:'DM Mono',monospace">${cd>=0?'+':''}${fmt(cd)}</div>
+      </div>
+    </div>`;
+  });
+  const gi=appData.items.reduce((s,d)=>s+d.qty*d.price,0),ga=appData.items.reduce((s,d)=>s+d.actual,0),gd=gi-ga;
+  h+=`<div class="m-grand">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:white">Grand Total</div>
+      <span class="pill ${gi>0&&ga/gi*100<=100?'pill-g':'pill-r'}" style="margin:0">${gi>0?(ga/gi*100).toFixed(1):0}%</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="m-kv"><div class="m-k">Ideal</div><div class="m-v" style="font-size:14px">${fmt(gi)}</div></div>
+      <div class="m-kv"><div class="m-k">Realisasi</div><div class="m-v" style="font-size:14px;color:var(--gold)">${fmt(ga)}</div></div>
+      <div class="m-kv" style="grid-column:1/-1"><div class="m-k">Selisih</div><div class="m-v ${gd>=0?'dp':'dn'}" style="font-size:14px">${gd>=0?'+':''}${fmt(gd)}</div></div>
+    </div>
+  </div>`;
+  document.getElementById('real-mobile').innerHTML=h;
+}
+
+// ── MOBILE CARD: ANGGARAN ────────────────────────────────────
+function renderMobileBudget(){
+  const cats=[...new Set(appData.items.map(d=>d.cat))];
+  let h='';
+  cats.forEach(cat=>{
+    h+=`<div class="m-cat">${cat}</div>`;
+    appData.items.filter(d=>d.cat===cat).forEach(d=>{
+      h+=`<div class="m-item">
+        <div class="m-item-name">${d.item}</div>
+        <div class="m-item-rows">
+          <div class="m-kv"><div class="m-k">Qty</div><div class="m-v">${d.qty}</div></div>
+          <div class="m-kv"><div class="m-k">Harga Satuan</div><div class="m-v">${fmt(d.price)}</div></div>
+          <div class="m-kv" style="grid-column:1/-1"><div class="m-k">Total Ideal</div><div class="m-v" style="font-size:14px;color:var(--gold)">${fmt(d.qty*d.price)}</div></div>
+          ${d.note?`<div class="m-kv" style="grid-column:1/-1"><div class="m-k">Catatan</div><div class="m-v" style="color:var(--muted);font-size:11px">${d.note}</div></div>`:''}
+        </div>
+      </div>`;
+    });
+    const ct=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
+    h+=`<div class="m-tot"><div class="m-tot-label">Total ${cat}</div><div class="m-tot-val" style="color:var(--gold)">${fmt(ct)}</div></div>`;
+  });
+  const grand=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
+  h+=`<div class="m-grand"><div style="display:flex;justify-content:space-between;align-items:center">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:white">Grand Total</div>
+    <div style="font-family:'DM Mono',monospace;font-size:16px;color:var(--red-light);font-weight:600">${fmt(grand)}</div>
+  </div></div>`;
+  document.getElementById('bgt-mobile').innerHTML=h;
+}
 
 loadData();
 </script>
