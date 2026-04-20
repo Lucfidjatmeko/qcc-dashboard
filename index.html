@@ -20,7 +20,11 @@
   .nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
   .fy-badge{margin-left:auto;align-self:center;background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:4px 12px;border-radius:2px;flex-shrink:0}
   .status-bar{display:flex;align-items:center;gap:8px;padding:7px 24px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px}
-  .s-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .s-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--orange);transition:background .3s}
+  .s-dot.ok{background:var(--green)}
+  .s-dot.err{background:#FF6B6B}
+  .s-dot.spin{background:var(--orange);animation:blink .8s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
   .s-text{color:var(--muted)}
   .s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
   .page{display:none;padding:24px;max-width:1300px;margin:0 auto}
@@ -70,6 +74,11 @@
   .und-n{font-family:'DM Mono',monospace;font-weight:600}
   .und-tot{display:flex;justify-content:space-between;padding:10px 0 0;margin-top:8px;border-top:1px solid var(--border);font-weight:600}
   .und-tot .und-n{color:var(--gold);font-size:18px}
+  .load-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
+  .spinner{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .load-txt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:var(--muted)}
+  .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px}
   footer{text-align:center;padding:20px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:28px}
   @media(max-width:580px){
     .page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}
@@ -79,6 +88,7 @@
 </style>
 </head>
 <body>
+
 <header class="header">
   <div class="header-brand">
     <div class="logo-box">QCC</div>
@@ -95,14 +105,16 @@
   </nav>
   <div class="fy-badge">FY 2026</div>
 </header>
+
 <div class="status-bar">
-  <div class="s-dot"></div>
-  <span class="s-text">Data FY2026 &middot; PAD PPIC &amp; Warehouse &middot; TMMIN</span>
+  <div class="s-dot spin" id="s-dot"></div>
+  <span class="s-text" id="s-text">Memuat data dari Google Sheets...</span>
   <span class="s-time" id="s-time"></span>
 </div>
+
 <div class="page active" id="page-overview">
   <div class="sec-title">Overview Budget</div>
-  <div class="cards" id="ov-cards"></div>
+  <div id="ov-cards"><div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div></div>
   <div class="sec-title" style="font-size:18px;margin-bottom:14px">Ideal vs Realisasi per Kategori</div>
   <div class="bar-chart" id="ov-chart"></div>
   <div class="sec-title" style="font-size:18px;margin-bottom:14px">Ringkasan Kategori</div>
@@ -111,6 +123,7 @@
     <tbody id="ov-tbl"></tbody>
   </table></div>
 </div>
+
 <div class="page" id="page-budget">
   <div class="sec-title">Rencana Anggaran</div>
   <div class="tbl-wrap"><table>
@@ -118,6 +131,7 @@
     <tbody id="bgt-tbl"></tbody>
   </table></div>
 </div>
+
 <div class="page" id="page-realisasi">
   <div class="sec-title">Realisasi Aktual</div>
   <div class="tbl-wrap"><table>
@@ -125,6 +139,7 @@
     <tbody id="real-tbl"></tbody>
   </table></div>
 </div>
+
 <div class="page" id="page-undangan">
   <div class="sec-title">Undangan &amp; Peserta</div>
   <div class="und-grid" id="und-grid"></div>
@@ -141,109 +156,217 @@
     </div>
   </div>
 </div>
+
 <footer>QCC Convention Dashboard FY2026 &middot; PAD PPIC &amp; Warehouse &middot; TMMIN Plant 1 &amp; 2</footer>
+
 <script>
-// ================================================================
-//  ★ UPDATE DATA DI SINI — edit di GitHub lalu commit & push
-//    Semua orang yang buka URL akan otomatis dapat data terbaru
-// ================================================================
-const DATA = {
-  lastUpdate: "April 2026",
+// ── URL GOOGLE SHEETS (hardcoded — tidak perlu diubah lagi) ──
+const URL_BUDGET   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=585403350&single=true&output=csv';
+const URL_UNDANGAN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=1856762333&single=true&output=csv';
+// ────────────────────────────────────────────────────────────
 
-  items: [
-    // FORMAT: { cat, item, qty, price, actual, note }
-    // actual = 0 jika belum ada realisasi
-    // ─── REWARD ─────────────────────────────────────────────────
-    { cat:"Reward", item:"Reward QCC",              qty:1,   price:4500000, actual:0, note:"Juara 1: 2jt / J2: 1,5jt / J3: 1jt" },
-    { cat:"Reward", item:"Reward SS",               qty:1,   price:2800000, actual:0, note:"Juara 1: 1,5jt / J2: 800k / J3: 500k" },
-    { cat:"Reward", item:"Reward Ownership",        qty:1,   price:750000,  actual:0, note:"QCC: 500k / SS: 250k" },
-    { cat:"Reward", item:"Reward Video Entrance",   qty:1,   price:750000,  actual:0, note:"QCC: 500k / SS: 250k" },
-    { cat:"Reward", item:"Hadiah Kuis",             qty:1,   price:600000,  actual:0, note:"" },
-    { cat:"Reward", item:"Hadiah CEO",              qty:1,   price:100000,  actual:0, note:"" },
-    { cat:"Reward", item:"Bingkai Piagam",          qty:6,   price:75000,   actual:0, note:"" },
-    { cat:"Reward", item:"Styrofoam",               qty:6,   price:100000,  actual:0, note:"" },
-    // ─── KONSUMSI ────────────────────────────────────────────────
-    { cat:"Konsumsi", item:"Lunch Prasmanan",       qty:30,  price:95000,   actual:0, note:"" },
-    { cat:"Konsumsi", item:"Lunch Box",             qty:200, price:75000,   actual:0, note:"" },
-    { cat:"Konsumsi", item:"Snack",                 qty:230, price:15000,   actual:0, note:"" },
-    { cat:"Konsumsi", item:"Coffee Break",          qty:1,   price:1500000, actual:0, note:"" },
-    { cat:"Konsumsi", item:"Buah Management",       qty:6,   price:100000,  actual:0, note:"" },
-    { cat:"Konsumsi", item:"Uang Makan Penjurian",  qty:1,   price:3850000, actual:0, note:"" },
-    { cat:"Konsumsi", item:"Lunch Box Gladi Resik", qty:30,  price:50000,   actual:0, note:"" },
-    // ─── PERLENGKAPAN ────────────────────────────────────────────
-    { cat:"Perlengkapan", item:"Cetak Spanduk",     qty:3,   price:100000,  actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Cetak Banner",      qty:3,   price:100000,  actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Backdrop",          qty:1,   price:500000,  actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Photobooth",        qty:1,   price:3000000, actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Dekorasi",          qty:1,   price:5000000, actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Kaos Panitia",      qty:76,  price:140000,  actual:0, note:"Advisor - Sekjuri" },
-    { cat:"Perlengkapan", item:"Sewa Kursi",        qty:150, price:9000,    actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Round Table",       qty:4,   price:1000000, actual:0, note:"" },
-    { cat:"Perlengkapan", item:"Overtime Supporting",qty:2,  price:500000,  actual:0, note:"" },
-  ],
-
-  undangan: {
-    mgmt:    [ {label:"DH",val:1}, {label:"DDH",val:1}, {label:"Manager",val:8}, {label:"AM (excl. juri)",val:12} ],
-    peserta: [ {label:"QCC Lolos",val:54}, {label:"SS Lolos",val:20}, {label:"QCC Tidak Lolos",val:26}, {label:"SS Tidak Lolos",val:11} ],
-    panitia: [ {label:"Panitia Inti",val:5}, {label:"Panitia Seksi",val:32}, {label:"Juri",val:12}, {label:"Sekretaris Juri",val:3} ],
-  }
-};
-// ================================================================
+let appData = { items:[], undangan:{} };
 
 const fmt  = n => 'Rp'+Math.round(n||0).toLocaleString('id-ID');
 const fmtS = n => { n=n||0; return n>=1000000?'Rp'+(n/1000000).toFixed(1)+'jt':n>=1000?'Rp'+(n/1000).toFixed(0)+'rb':'Rp'+n; };
-function getCatTotals(){const c={};DATA.items.forEach(d=>{if(!c[d.cat])c[d.cat]={ideal:0,actual:0};c[d.cat].ideal+=(d.qty*d.price)||0;c[d.cat].actual+=d.actual||0;});return c;}
-function showPage(name,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');el.classList.add('active');}
 
+function setStatus(state, msg){
+  const dot=document.getElementById('s-dot'), txt=document.getElementById('s-text');
+  dot.className='s-dot';
+  if(state==='ok') dot.classList.add('ok');
+  else if(state==='err') dot.classList.add('err');
+  else dot.classList.add('spin');
+  txt.textContent=msg;
+}
+
+// ── CSV PARSER ───────────────────────────────────────────────
+function parseCSV(text){
+  const lines = text.trim().split(/\r?\n/);
+  if(lines.length < 2) return [];
+  const headers = splitCSVLine(lines[0]);
+  return lines.slice(1).map(line => {
+    const vals = splitCSVLine(line);
+    const obj = {};
+    headers.forEach((h,i) => { obj[h.trim()] = (vals[i]||'').trim(); });
+    return obj;
+  }).filter(r => Object.values(r).some(v => v !== ''));
+}
+
+function splitCSVLine(line){
+  const result=[], re=/("([^"]*)"|([^,]*))(,|$)/g;
+  let m;
+  while((m=re.exec(line))!==null){
+    result.push((m[2]!==undefined?m[2]:m[3])||'');
+    if(m[4]==='') break;
+  }
+  return result;
+}
+
+// ── FETCH CSV ────────────────────────────────────────────────
+async function fetchCSV(url){
+  // Google Sheets published CSV sudah support CORS — fetch langsung
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  return await res.text();
+}
+
+// ── LOAD DATA ────────────────────────────────────────────────
+async function loadData(){
+  setStatus('spin','Memuat data dari Google Sheets...');
+  try {
+    const [csvBudget, csvUnd] = await Promise.all([
+      fetchCSV(URL_BUDGET),
+      fetchCSV(URL_UNDANGAN)
+    ]);
+
+    // Parse budget items
+    // Kolom Google Sheets: cat | item | qty | price | actual | note
+    appData.items = parseCSV(csvBudget).map(r => ({
+      cat:    r.cat    || r.Cat    || '',
+      item:   r.item   || r.Item   || '',
+      qty:    parseFloat((r.qty   ||r.Qty  ||'0').replace(/[^0-9.-]/g,''))||0,
+      price:  parseFloat((r.price ||r.Price||'0').replace(/[^0-9.-]/g,''))||0,
+      actual: parseFloat((r.actual||r.Actual||'0').replace(/[^0-9.-]/g,''))||0,
+      note:   r.note   || r.Note   || ''
+    })).filter(r => r.item && r.cat);
+
+    // Parse undangan
+    // Kolom Google Sheets: group | label | val
+    const undRows = parseCSV(csvUnd);
+    appData.undangan = {};
+    undRows.forEach(r => {
+      const g = (r.group||r.Group||'').toLowerCase().trim();
+      const l = r.label||r.Label||r.key||'';
+      const v = parseFloat((r.val||r.Val||r.value||'0').replace(/[^0-9.-]/g,''))||0;
+      if(!g||!l) return;
+      if(!appData.undangan[g]) appData.undangan[g]=[];
+      appData.undangan[g].push({label:l, val:v});
+    });
+
+    const now = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+    setStatus('ok','Live dari Google Sheets');
+    document.getElementById('s-time').textContent='Update: '+now;
+    renderAll();
+  } catch(e) {
+    setStatus('err','Gagal memuat — '+e.message);
+    document.getElementById('ov-cards').innerHTML=`<div class="err-wrap">Gagal memuat data.<br><small style="color:var(--muted)">${e.message}</small><br><br><button onclick="loadData()" style="margin-top:8px;padding:8px 16px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:DM Sans,sans-serif">Coba Lagi</button></div>`;
+  }
+}
+
+// ── NAVIGATION ───────────────────────────────────────────────
+function showPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── HELPERS ──────────────────────────────────────────────────
+function getCatTotals(){
+  const c={};
+  appData.items.forEach(d=>{
+    if(!c[d.cat]) c[d.cat]={ideal:0,actual:0};
+    c[d.cat].ideal+=(d.qty*d.price)||0;
+    c[d.cat].actual+=d.actual||0;
+  });
+  return c;
+}
+
+// ── OVERVIEW ─────────────────────────────────────────────────
 function renderOverview(){
-  const ct=getCatTotals(),gi=Object.values(ct).reduce((s,c)=>s+c.ideal,0),ga=Object.values(ct).reduce((s,c)=>s+c.actual,0),sisa=gi-ga,pct=gi>0?(ga/gi*100).toFixed(1):0;
+  const ct=getCatTotals();
+  const gi=Object.values(ct).reduce((s,c)=>s+c.ideal,0);
+  const ga=Object.values(ct).reduce((s,c)=>s+c.actual,0);
+  const sisa=gi-ga, pct=gi>0?(ga/gi*100).toFixed(1):0;
   document.getElementById('ov-cards').innerHTML=`
-    <div class="card"><div class="c-label">Total Ideal Budget</div><div class="c-val">${fmt(gi)}</div><div class="c-sub">Rencana anggaran FY26</div></div>
-    <div class="card"><div class="c-label">Total Realisasi</div><div class="c-val" style="color:var(--gold)">${fmt(ga)}</div><div class="c-sub">${pct}% terserap</div><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div></div>
-    <div class="card"><div class="c-label">Sisa Anggaran</div><div class="c-val" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div><div class="c-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div><div class="pill ${sisa>=0?'pill-g':'pill-r'}">${sisa>=0?'Hemat':'Over'}</div></div>
-    <div class="card"><div class="c-label">Update Terakhir</div><div class="c-val" style="font-size:14px">${DATA.lastUpdate}</div><div class="c-sub">${DATA.items.length} item anggaran</div></div>`;
+    <div class="cards">
+      <div class="card"><div class="c-label">Total Ideal Budget</div><div class="c-val">${fmt(gi)}</div><div class="c-sub">Rencana anggaran FY26</div></div>
+      <div class="card"><div class="c-label">Total Realisasi</div><div class="c-val" style="color:var(--gold)">${fmt(ga)}</div><div class="c-sub">${pct}% terserap</div><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div></div>
+      <div class="card"><div class="c-label">Sisa Anggaran</div><div class="c-val" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div><div class="c-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div><div class="pill ${sisa>=0?'pill-g':'pill-r'}">${sisa>=0?'Hemat':'Over'}</div></div>
+      <div class="card"><div class="c-label">Jumlah Item</div><div class="c-val">${appData.items.length}</div><div class="c-sub">${Object.keys(ct).length} kategori</div></div>
+    </div>`;
   const maxV=Math.max(...Object.values(ct).map(c=>c.ideal),1);
   document.getElementById('ov-chart').innerHTML=Object.entries(ct).map(([cat,v])=>{
     const iw=(v.ideal/maxV*100).toFixed(1),aw=(v.actual/maxV*100).toFixed(1);
-    return `<div class="bar-row"><div class="bar-lbl">${cat}</div><div class="bar-track"><div class="bar-ideal" style="width:${iw}%">${fmtS(v.ideal)}</div>${v.actual>0?`<div class="bar-act" style="width:${aw}%;background:${v.actual>v.ideal?'var(--orange)':'var(--red)'}"></div>`:''}</div><div class="bar-v" style="color:${v.actual>0?'var(--text)':'var(--muted)'}">${v.actual>0?fmtS(v.actual):'&#8212;'}</div></div>`;
+    return `<div class="bar-row"><div class="bar-lbl">${cat}</div><div class="bar-track">
+      <div class="bar-ideal" style="width:${iw}%">${fmtS(v.ideal)}</div>
+      ${v.actual>0?`<div class="bar-act" style="width:${aw}%;background:${v.actual>v.ideal?'var(--orange)':'var(--red)'}"></div>`:''}
+    </div><div class="bar-v" style="color:${v.actual>0?'var(--text)':'var(--muted)'}">${v.actual>0?fmtS(v.actual):'&#8212;'}</div></div>`;
   }).join('');
   document.getElementById('ov-tbl').innerHTML=Object.entries(ct).map(([cat,v])=>{
     const d=v.ideal-v.actual,p=v.ideal>0?(v.actual/v.ideal*100).toFixed(1):0,has=v.actual>0;
-    return `<tr><td><strong>${cat}</strong></td><td class="tn">${fmt(v.ideal)}</td><td class="tn">${has?fmt(v.actual):'<span style="color:var(--muted)">&#8212;</span>'}</td><td class="tn ${has?(d>=0?'dp':'dn'):'dz'}">${has?(d>=0?'+':'')+fmt(d):'&#8212;'}</td><td>${has?`<span class="pill ${p<=100?'pill-g':'pill-r'}">${p}%</span>`:'<span class="pill pill-o">Pending</span>'}</td></tr>`;
-  }).join('')+`<tr class="tot-row"><td>GRAND TOTAL</td><td class="tn">${fmt(Object.values(ct).reduce((s,c)=>s+c.ideal,0))}</td><td class="tn">${fmt(Object.values(ct).reduce((s,c)=>s+c.actual,0))}</td><td class="tn ${Object.values(ct).reduce((s,c)=>s+c.ideal,0)-Object.values(ct).reduce((s,c)=>s+c.actual,0)>=0?'dp':'dn'}">${Object.values(ct).reduce((s,c)=>s+c.ideal,0)-Object.values(ct).reduce((s,c)=>s+c.actual,0)>=0?'+':''}${fmt(Object.values(ct).reduce((s,c)=>s+c.ideal,0)-Object.values(ct).reduce((s,c)=>s+c.actual,0))}</td><td><span class="pill ${Object.values(ct).reduce((s,c)=>s+c.actual,0)/Object.values(ct).reduce((s,c)=>s+c.ideal,0)*100<=100?'pill-g':'pill-r'}">${Object.values(ct).reduce((s,c)=>s+c.ideal,0)>0?(Object.values(ct).reduce((s,c)=>s+c.actual,0)/Object.values(ct).reduce((s,c)=>s+c.ideal,0)*100).toFixed(1):0}%</span></td></tr>`;
+    return `<tr><td><strong>${cat}</strong></td><td class="tn">${fmt(v.ideal)}</td>
+      <td class="tn">${has?fmt(v.actual):'<span style="color:var(--muted)">&#8212;</span>'}</td>
+      <td class="tn ${has?(d>=0?'dp':'dn'):'dz'}">${has?(d>=0?'+':'')+fmt(d):'&#8212;'}</td>
+      <td>${has?`<span class="pill ${p<=100?'pill-g':'pill-r'}">${p}%</span>`:'<span class="pill pill-o">Pending</span>'}</td></tr>`;
+  }).join('')+`<tr class="tot-row"><td>GRAND TOTAL</td>
+    <td class="tn">${fmt(gi)}</td><td class="tn">${fmt(ga)}</td>
+    <td class="tn ${sisa>=0?'dp':'dn'}">${sisa>=0?'+':''}${fmt(sisa)}</td>
+    <td><span class="pill ${pct<=100?'pill-g':'pill-r'}">${pct}%</span></td></tr>`;
 }
 
+// ── ANGGARAN ─────────────────────────────────────────────────
 function renderBudget(){
-  const cats=[...new Set(DATA.items.map(d=>d.cat))];let h='';
+  const cats=[...new Set(appData.items.map(d=>d.cat))];
+  let h='';
   cats.forEach(cat=>{
     h+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
-    DATA.items.filter(d=>d.cat===cat).forEach(d=>{h+=`<tr><td>${d.item}</td><td style="text-align:center;font-family:'DM Mono',monospace">${d.qty}</td><td class="tn">${fmt(d.price)}</td><td class="tn" style="color:var(--gold)">${fmt(d.qty*d.price)}</td><td class="note-c">${d.note||'&#8212;'}</td></tr>`;});
-    h+=`<tr class="tot-row"><td>Total ${cat}</td><td></td><td></td><td class="tn">${fmt(DATA.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0))}</td><td></td></tr>`;
+    appData.items.filter(d=>d.cat===cat).forEach(d=>{
+      h+=`<tr><td>${d.item}</td><td style="text-align:center;font-family:'DM Mono',monospace">${d.qty}</td>
+        <td class="tn">${fmt(d.price)}</td><td class="tn" style="color:var(--gold)">${fmt(d.qty*d.price)}</td>
+        <td class="note-c">${d.note||'&#8212;'}</td></tr>`;
+    });
+    const ct=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
+    h+=`<tr class="tot-row"><td>Total ${cat}</td><td></td><td></td><td class="tn">${fmt(ct)}</td><td></td></tr>`;
   });
-  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td colspan="3"><strong>GRAND TOTAL</strong></td><td class="tn" style="color:var(--red-light);font-size:15px">${fmt(DATA.items.reduce((s,d)=>s+d.qty*d.price,0))}</td><td></td></tr>`;
+  const grand=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
+  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td colspan="3"><strong>GRAND TOTAL</strong></td><td class="tn" style="color:var(--red-light);font-size:15px">${fmt(grand)}</td><td></td></tr>`;
   document.getElementById('bgt-tbl').innerHTML=h;
 }
 
+// ── REALISASI ────────────────────────────────────────────────
 function renderReal(){
-  const cats=[...new Set(DATA.items.map(d=>d.cat))];let h='';
+  const cats=[...new Set(appData.items.map(d=>d.cat))];
+  let h='';
   cats.forEach(cat=>{
     h+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
-    DATA.items.filter(d=>d.cat===cat).forEach(d=>{
+    appData.items.filter(d=>d.cat===cat).forEach(d=>{
       const ideal=d.qty*d.price,delta=ideal-d.actual,pct=d.actual>0&&ideal>0?(d.actual/ideal*100).toFixed(1):null;
-      h+=`<tr><td>${d.item}</td><td class="tn">${fmt(ideal)}</td><td class="tn" style="${d.actual>0?'color:var(--gold)':'color:var(--muted)'}">${d.actual>0?fmt(d.actual):'&#8212;'}</td><td class="tn ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'&#8212;'}</td><td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px"><div class="pbar-bg" style="width:80px;display:inline-block"><div class="pbar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div></div><span style="font-family:DM Mono,monospace;font-size:11px;color:var(--muted)">${pct}%</span></div>`:'<span style="color:var(--muted);font-size:11px">Pending</span>'}</td></tr>`;
+      h+=`<tr><td>${d.item}</td><td class="tn">${fmt(ideal)}</td>
+        <td class="tn" style="${d.actual>0?'color:var(--gold)':'color:var(--muted)'}">${d.actual>0?fmt(d.actual):'&#8212;'}</td>
+        <td class="tn ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'&#8212;'}</td>
+        <td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px">
+          <div class="pbar-bg" style="width:80px;display:inline-block"><div class="pbar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div></div>
+          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${pct}%</span></div>`
+          :'<span style="color:var(--muted);font-size:11px">Pending</span>'}</td></tr>`;
     });
-    const ci=DATA.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0),ca=DATA.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0),cd=ci-ca;
-    h+=`<tr class="tot-row"><td>Total ${cat}</td><td class="tn">${fmt(ci)}</td><td class="tn">${fmt(ca)}</td><td class="tn ${cd>=0?'dp':'dn'}">${cd>=0?'+':''}${fmt(cd)}</td><td><span class="pill ${ca/ci*100<=100?'pill-g':'pill-r'}">${ci>0?(ca/ci*100).toFixed(1):0}%</span></td></tr>`;
+    const ci=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
+    const ca=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0),cd=ci-ca;
+    h+=`<tr class="tot-row"><td>Total ${cat}</td><td class="tn">${fmt(ci)}</td><td class="tn">${fmt(ca)}</td>
+      <td class="tn ${cd>=0?'dp':'dn'}">${cd>=0?'+':''}${fmt(cd)}</td>
+      <td><span class="pill ${ci>0&&ca/ci*100<=100?'pill-g':'pill-r'}">${ci>0?(ca/ci*100).toFixed(1):0}%</span></td></tr>`;
   });
-  const gi=DATA.items.reduce((s,d)=>s+d.qty*d.price,0),ga=DATA.items.reduce((s,d)=>s+d.actual,0),gd=gi-ga;
-  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td><strong>GRAND TOTAL</strong></td><td class="tn">${fmt(gi)}</td><td class="tn" style="color:var(--gold)">${fmt(ga)}</td><td class="tn ${gd>=0?'dp':'dn'}">${gd>=0?'+':''}${fmt(gd)}</td><td><span class="pill ${ga/gi*100<=100?'pill-g':'pill-r'}">${gi>0?(ga/gi*100).toFixed(1):0}%</span></td></tr>`;
+  const gi=appData.items.reduce((s,d)=>s+d.qty*d.price,0),ga=appData.items.reduce((s,d)=>s+d.actual,0),gd=gi-ga;
+  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td><strong>GRAND TOTAL</strong></td>
+    <td class="tn">${fmt(gi)}</td><td class="tn" style="color:var(--gold)">${fmt(ga)}</td>
+    <td class="tn ${gd>=0?'dp':'dn'}">${gd>=0?'+':''}${fmt(gd)}</td>
+    <td><span class="pill ${gi>0&&ga/gi*100<=100?'pill-g':'pill-r'}">${gi>0?(ga/gi*100).toFixed(1):0}%</span></td></tr>`;
   document.getElementById('real-tbl').innerHTML=h;
 }
 
+// ── UNDANGAN ─────────────────────────────────────────────────
 function renderUndangan(){
-  const u=DATA.undangan,groups=[{key:'mgmt',label:'Management'},{key:'peserta',label:'Peserta'},{key:'panitia',label:'Panitia'}];
+  const u=appData.undangan;
+  const groups=[{key:'mgmt',label:'Management'},{key:'peserta',label:'Peserta'},{key:'panitia',label:'Panitia'}];
   let totAll=0;
-  document.getElementById('und-grid').innerHTML=groups.map(g=>{const rows=u[g.key]||[],tot=rows.reduce((s,r)=>s+r.val,0);totAll+=tot;return `<div class="und-card"><h3>${g.label}</h3>${rows.map(r=>`<div class="und-row"><span class="lbl">${r.label}</span><span class="und-n">${r.val}</span></div>`).join('')}<div class="und-tot"><span>Total</span><span class="und-n">${tot}</span></div></div>`;}).join('');
+  document.getElementById('und-grid').innerHTML=groups.map(g=>{
+    const rows=u[g.key]||[],tot=rows.reduce((s,r)=>s+r.val,0);
+    totAll+=tot;
+    return `<div class="und-card"><h3>${g.label}</h3>
+      ${rows.map(r=>`<div class="und-row"><span class="lbl">${r.label}</span><span class="und-n">${r.val}</span></div>`).join('')}
+      ${rows.length===0?'<div style="color:var(--muted);font-size:12px;padding:8px 0;text-align:center">Belum ada data</div>':''}
+      <div class="und-tot"><span>Total</span><span class="und-n">${tot}</span></div></div>`;
+  }).join('');
   const tots=groups.map(g=>(u[g.key]||[]).reduce((s,r)=>s+r.val,0));
   document.getElementById('tot-all').textContent=totAll;
   document.getElementById('tot-m').textContent=tots[0];
@@ -251,8 +374,12 @@ function renderUndangan(){
   document.getElementById('tot-n').textContent=tots[2];
 }
 
-document.getElementById('s-time').textContent='Update: '+DATA.lastUpdate;
-renderOverview();renderBudget();renderReal();renderUndangan();
+function renderAll(){
+  renderOverview(); renderBudget(); renderReal(); renderUndangan();
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+loadData();
 </script>
 </body>
 </html>
