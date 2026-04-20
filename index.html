@@ -8,8 +8,8 @@
 <style>
   :root{--red:#C8102E;--red-light:#FF2B4A;--gold:#C9A84C;--gold-light:#F0C96A;--black:#0D0D0D;--dark:#161616;--panel:#1E1E1E;--panel2:#252525;--border:#2E2E2E;--text:#E8E8E8;--muted:#888;--green:#2ECC71;--orange:#F39C12;--blue:#3498DB}
   *{box-sizing:border-box;margin:0;padding:0}
-  html{width:100%;overflow-x:hidden}
-  body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden;width:100%}
+  html,body{width:100%;overflow-x:hidden}
+  body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
   .header{background:var(--dark);border-bottom:2px solid var(--red);padding:0 24px;display:flex;align-items:stretch;position:sticky;top:0;z-index:100}
   .header-brand{display:flex;align-items:center;gap:14px;padding:13px 20px 13px 0;border-right:1px solid var(--border);margin-right:18px;flex-shrink:0}
   .logo-box{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:white}
@@ -17,7 +17,7 @@
   .brand-text p{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
   .nav-tabs{display:flex;align-items:center;flex:1;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .nav-tabs::-webkit-scrollbar{display:none}
-  .nav-tab{padding:10px 15px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
+  .nav-tab{padding:10px 15px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;flex-shrink:0}
   .nav-tab:hover{color:var(--text)}.nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
   .fy-badge{margin-left:auto;align-self:center;background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:4px 12px;border-radius:2px;flex-shrink:0}
   .status-bar{display:flex;align-items:center;gap:8px;padding:7px 24px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px}
@@ -25,7 +25,7 @@
   .s-dot.ok{background:var(--green)}.s-dot.err{background:#FF6B6B}.s-dot.spin{background:var(--orange);animation:blink .8s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
   .s-text{color:var(--muted)}.s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
-  .page{display:none;padding:24px;max-width:1300px;margin:0 auto;width:100%}.page.active{display:block}
+  .page{display:none;padding:24px;max-width:1300px;margin:0 auto}.page.active{display:block}
   .sec-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:white;display:flex;align-items:center;gap:10px;margin-bottom:18px}
   .sec-title::before{content:'';display:block;width:4px;height:22px;background:var(--red);flex-shrink:0}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:26px}
@@ -69,35 +69,10 @@
   .load-txt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:var(--muted)}
   .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;line-height:2.2}
   footer{text-align:center;padding:20px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:28px}
-  /* MOBILE CARD VIEW untuk tabel Realisasi & Anggaran */
-  .m-card{display:none}
   @media(max-width:580px){
-    .page{padding:12px;max-width:100%}.header{padding:0 10px}
-    .header-brand{padding:10px 12px 10px 0;margin-right:10px;gap:8px}
-    .logo-box{width:30px;height:30px;font-size:13px}
-    .brand-text h1{font-size:13px;letter-spacing:1px}
-    .status-bar{padding:7px 12px}
-    .brand-text p{display:none}
-    .bar-row{grid-template-columns:70px 1fr 65px}
-    .cards{grid-template-columns:1fr 1fr}
-    .nav-tab{padding:10px 10px;font-size:12px}
-    .fy-badge{font-size:12px;padding:3px 8px}
-    #page-budget .tbl-wrap{display:none}
-    #page-realisasi .tbl-wrap{display:none}
-    .m-card{display:block;width:100%}
-    .m-cat{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--gold);background:var(--panel2);padding:8px 14px;margin-bottom:2px;width:100%;display:block}
-    .m-item{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--border);padding:12px 14px;margin-bottom:2px;width:100%;display:block}
-    .m-item.over{border-left-color:var(--orange)}
-    .m-item.ok{border-left-color:var(--green)}
-    .m-item-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px}
-    .m-item-rows{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;width:100%}
-    .m-kv{display:flex;flex-direction:column}
-    .m-k{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:1px}
-    .m-v{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
-    .m-tot{background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.3);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;width:100%}
-    .m-tot-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;color:var(--muted)}
-    .m-tot-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:600}
-    .m-grand{background:rgba(200,16,46,.15);border:1px solid rgba(200,16,46,.4);padding:14px;margin-top:8px;width:100%;display:block}
+    .page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}
+    .brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}
+    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}
   }
 </style>
 </head>
@@ -143,7 +118,6 @@
     <thead><tr><th>Item</th><th style="text-align:center">Qty</th><th class="tn">Harga Satuan</th><th class="tn">Total Ideal</th><th>Catatan</th></tr></thead>
     <tbody id="bgt-tbl"></tbody>
   </table></div>
-  <div class="m-card" id="bgt-mobile"></div>
 </div>
 <div class="page" id="page-realisasi">
   <div class="sec-title">Realisasi Aktual</div>
@@ -151,7 +125,6 @@
     <thead><tr><th>Item</th><th class="tn">Ideal</th><th class="tn">Aktual</th><th class="tn">Selisih</th><th>% Serap</th></tr></thead>
     <tbody id="real-tbl"></tbody>
   </table></div>
-  <div class="m-card" id="real-mobile"></div>
 </div>
 <div class="page" id="page-undangan">
   <div class="sec-title">Undangan &amp; Peserta</div>
@@ -172,9 +145,7 @@
 <footer>QCC Convention Dashboard FY2026 &middot; Plant Administration Division &middot; Manufacturing &amp; PE Directorate</footer>
 
 <script>
-// ── Apps Script URL (relay dari Google Sheets, no CORS issue) ─
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyl_xNoxFFw7IMtsklIxTgOv3YF5r6TrsSeUag7YGoARMBJ3-8PGrVEMCrukaZfSN6w/exec';
-
 let appData = { items:[], undangan:{} };
 const fmt  = n => 'Rp'+Math.round(n||0).toLocaleString('id-ID');
 const fmtS = n => { n=n||0; return n>=1000000?'Rp'+(n/1000000).toFixed(1)+'jt':n>=1000?'Rp'+(n/1000).toFixed(0)+'rb':'Rp'+n; };
@@ -185,65 +156,42 @@ function setStatus(state,msg){
   txt.textContent=msg;
 }
 
-// ── PARSE ROWS FROM SHEETS (array of arrays) ─────────────────
-// Format dari GAS: [[header1,header2,...],[val1,val2,...],...]
 function parseRows(rows){
   if(!rows||rows.length<2) return [];
-  const headers = rows[0].map(h=>String(h).trim().toLowerCase());
+  const headers=rows[0].map(h=>String(h).trim().toLowerCase());
   return rows.slice(1).map(row=>{
     const obj={};
     headers.forEach((h,i)=>{ obj[h]=String(row[i]||'').trim(); });
     return obj;
   }).filter(r=>Object.values(r).some(v=>v!==''));
 }
-
 function toNum(s){ return parseFloat(String(s).replace(/[^0-9.-]/g,''))||0; }
 
-// ── LOAD DATA FROM GAS ───────────────────────────────────────
 async function loadData(){
   setStatus('spin','Memuat data dari Google Sheets...');
   document.getElementById('ov-wrap').innerHTML='<div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div>';
   try{
-    const res = await fetch(GAS_URL);
+    const res=await fetch(GAS_URL);
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const json = await res.json();
-
-    // Parse BudgetItems
-    // Kolom yang diharapkan: cat, item, qty, price, actual, note
-    const budgetRows = parseRows(json.budget||[]);
-    appData.items = budgetRows.map(r=>({
-      cat:    r.cat||r.category||'',
-      item:   r.item||r.nama||'',
-      qty:    toNum(r.qty||r.quantity||0),
-      price:  toNum(r.price||r.harga||0),
-      actual: toNum(r.actual||r.aktual||0),
-      note:   r.note||r.catatan||''
+    const json=await res.json();
+    appData.items=parseRows(json.budget||[]).map(r=>({
+      cat:r.cat||'',item:r.item||'',
+      qty:toNum(r.qty),price:toNum(r.price),actual:toNum(r.actual),note:r.note||''
     })).filter(r=>r.item&&r.cat);
-
-    // Parse Undangan
-    // Kolom yang diharapkan: group, label, val
     appData.undangan={};
     parseRows(json.undangan||[]).forEach(r=>{
-      const g=(r.group||r.grup||'').toLowerCase().trim();
-      const l=r.label||r.nama||'';
-      const v=toNum(r.val||r.value||r.jumlah||0);
+      const g=(r.group||'').toLowerCase().trim(),l=r.label||r.key||'',v=toNum(r.val||r.value);
       if(!g||!l) return;
       if(!appData.undangan[g]) appData.undangan[g]=[];
       appData.undangan[g].push({label:l,val:v});
     });
-
     const now=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
     setStatus('ok','Live dari Google Sheets');
     document.getElementById('s-time').textContent='Update: '+now;
     renderAll();
-
   } catch(e){
     setStatus('err','Gagal memuat — '+e.message);
-    document.getElementById('ov-wrap').innerHTML=`<div class="err-wrap">
-      Gagal memuat data.<br>
-      <small style="color:var(--muted)">${e.message}</small><br>
-      <button onclick="loadData()" style="margin-top:12px;padding:8px 20px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:13px">&#8635; Coba Lagi</button>
-    </div>`;
+    document.getElementById('ov-wrap').innerHTML=`<div class="err-wrap">Gagal memuat data.<br><small>${e.message}</small><br><button onclick="loadData()" style="margin-top:12px;padding:8px 20px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:'DM Sans',sans-serif">&#8635; Coba Lagi</button></div>`;
   }
 }
 
@@ -352,80 +300,7 @@ function renderUndangan(){
   document.getElementById('tot-n').textContent=tots[2];
 }
 
-function renderAll(){ renderOverview();renderBudget();renderReal();renderUndangan();renderMobileReal();renderMobileBudget(); }
-
-// ── MOBILE CARD: REALISASI ───────────────────────────────────
-function renderMobileReal(){
-  const cats=[...new Set(appData.items.map(d=>d.cat))];
-  let h='';
-  cats.forEach(cat=>{
-    h+=`<div class="m-cat">${cat}</div>`;
-    appData.items.filter(d=>d.cat===cat).forEach(d=>{
-      const ideal=d.qty*d.price,delta=ideal-d.actual;
-      const pct=d.actual>0&&ideal>0?(d.actual/ideal*100).toFixed(1):null;
-      const cls=pct===null?'':(parseFloat(pct)>100?'over':'ok');
-      h+=`<div class="m-item ${cls}">
-        <div class="m-item-name">${d.item}</div>
-        <div class="m-item-rows">
-          <div class="m-kv"><div class="m-k">Ideal</div><div class="m-v">${fmt(ideal)}</div></div>
-          <div class="m-kv"><div class="m-k">Aktual</div><div class="m-v" style="color:${d.actual>0?'var(--gold)':'var(--muted)'}">${d.actual>0?fmt(d.actual):'—'}</div></div>
-          <div class="m-kv"><div class="m-k">Selisih</div><div class="m-v ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'—'}</div></div>
-          <div class="m-kv"><div class="m-k">% Serap</div><div class="m-v">${pct!==null?`<span class="pill ${parseFloat(pct)<=100?'pill-g':'pill-r'}" style="margin:0">${pct}%</span>`:'<span class="pill pill-o" style="margin:0">Pending</span>'}</div></div>
-        </div>
-      </div>`;
-    });
-    const ci=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
-    const ca=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0),cd=ci-ca;
-    h+=`<div class="m-tot">
-      <div class="m-tot-label">Total ${cat}</div>
-      <div style="text-align:right">
-        <div class="m-tot-val" style="color:var(--gold)">${fmt(ca)}</div>
-        <div style="font-size:10px;color:${cd>=0?'var(--green)':'#FF6B6B'};font-family:'DM Mono',monospace">${cd>=0?'+':''}${fmt(cd)}</div>
-      </div>
-    </div>`;
-  });
-  const gi=appData.items.reduce((s,d)=>s+d.qty*d.price,0),ga=appData.items.reduce((s,d)=>s+d.actual,0),gd=gi-ga;
-  h+=`<div class="m-grand">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:white">Grand Total</div>
-      <span class="pill ${gi>0&&ga/gi*100<=100?'pill-g':'pill-r'}" style="margin:0">${gi>0?(ga/gi*100).toFixed(1):0}%</span>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="m-kv"><div class="m-k">Ideal</div><div class="m-v" style="font-size:14px">${fmt(gi)}</div></div>
-      <div class="m-kv"><div class="m-k">Realisasi</div><div class="m-v" style="font-size:14px;color:var(--gold)">${fmt(ga)}</div></div>
-      <div class="m-kv" style="grid-column:1/-1"><div class="m-k">Selisih</div><div class="m-v ${gd>=0?'dp':'dn'}" style="font-size:14px">${gd>=0?'+':''}${fmt(gd)}</div></div>
-    </div>
-  </div>`;
-  document.getElementById('real-mobile').innerHTML=h;
-}
-
-// ── MOBILE CARD: ANGGARAN ────────────────────────────────────
-function renderMobileBudget(){
-  const cats=[...new Set(appData.items.map(d=>d.cat))];
-  let h='';
-  cats.forEach(cat=>{
-    h+=`<div class="m-cat">${cat}</div>`;
-    appData.items.filter(d=>d.cat===cat).forEach(d=>{
-      h+=`<div class="m-item">
-        <div class="m-item-name">${d.item}</div>
-        <div class="m-item-rows">
-          <div class="m-kv"><div class="m-k">Qty</div><div class="m-v">${d.qty}</div></div>
-          <div class="m-kv"><div class="m-k">Harga Satuan</div><div class="m-v">${fmt(d.price)}</div></div>
-          <div class="m-kv" style="grid-column:1/-1"><div class="m-k">Total Ideal</div><div class="m-v" style="font-size:14px;color:var(--gold)">${fmt(d.qty*d.price)}</div></div>
-          ${d.note?`<div class="m-kv" style="grid-column:1/-1"><div class="m-k">Catatan</div><div class="m-v" style="color:var(--muted);font-size:11px">${d.note}</div></div>`:''}
-        </div>
-      </div>`;
-    });
-    const ct=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
-    h+=`<div class="m-tot"><div class="m-tot-label">Total ${cat}</div><div class="m-tot-val" style="color:var(--gold)">${fmt(ct)}</div></div>`;
-  });
-  const grand=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
-  h+=`<div class="m-grand"><div style="display:flex;justify-content:space-between;align-items:center">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:white">Grand Total</div>
-    <div style="font-family:'DM Mono',monospace;font-size:16px;color:var(--red-light);font-weight:600">${fmt(grand)}</div>
-  </div></div>`;
-  document.getElementById('bgt-mobile').innerHTML=h;
-}
+function renderAll(){ renderOverview();renderBudget();renderReal();renderUndangan(); }
 
 loadData();
 </script>
