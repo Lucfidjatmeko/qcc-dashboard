@@ -21,29 +21,21 @@
   .fy-badge{margin-left:auto;align-self:center;background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:4px 12px;border-radius:2px;flex-shrink:0}
   .status-bar{display:flex;align-items:center;gap:8px;padding:7px 24px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px}
   .s-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--orange);transition:background .3s}
-  .s-dot.ok{background:var(--green)}
-  .s-dot.err{background:#FF6B6B}
+  .s-dot.ok{background:var(--green)}.s-dot.err{background:#FF6B6B}
   .s-dot.spin{background:var(--orange);animation:blink .8s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-  .s-text{color:var(--muted)}
-  .s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
-  .page{display:none;padding:24px;max-width:1300px;margin:0 auto}
-  .page.active{display:block}
+  .s-text{color:var(--muted)}.s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
+  .page{display:none;padding:24px;max-width:1300px;margin:0 auto}.page.active{display:block}
   .sec-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:white;display:flex;align-items:center;gap:10px;margin-bottom:18px}
   .sec-title::before{content:'';display:block;width:4px;height:22px;background:var(--red);flex-shrink:0}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:26px}
   .card{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px;animation:fadeUp .4s ease both}
-  .card:nth-child(2){animation-delay:.06s;border-top-color:var(--gold)}
-  .card:nth-child(3){animation-delay:.12s;border-top-color:var(--blue)}
-  .card:nth-child(4){animation-delay:.18s;border-top-color:var(--green)}
+  .card:nth-child(2){animation-delay:.06s;border-top-color:var(--gold)}.card:nth-child(3){animation-delay:.12s;border-top-color:var(--blue)}.card:nth-child(4){animation-delay:.18s;border-top-color:var(--green)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   .c-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px}
-  .c-val{font-family:'DM Mono',monospace;font-size:18px;color:white;margin-bottom:3px}
-  .c-sub{font-size:11px;color:var(--muted)}
+  .c-val{font-family:'DM Mono',monospace;font-size:18px;color:white;margin-bottom:3px}.c-sub{font-size:11px;color:var(--muted)}
   .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;margin-top:5px}
-  .pill-g{background:rgba(46,204,113,.15);color:var(--green)}
-  .pill-r{background:rgba(200,16,46,.15);color:#FF6B6B}
-  .pill-o{background:rgba(243,156,18,.15);color:var(--orange)}
+  .pill-g{background:rgba(46,204,113,.15);color:var(--green)}.pill-r{background:rgba(200,16,46,.15);color:#FF6B6B}.pill-o{background:rgba(243,156,18,.15);color:var(--orange)}
   .pbar-bg{background:var(--border);height:5px;border-radius:3px;overflow:hidden;margin-top:8px}
   .pbar-fill{height:100%;border-radius:3px;transition:width .8s ease}
   .tbl-wrap{overflow-x:auto;margin-bottom:26px;-webkit-overflow-scrolling:touch}
@@ -55,9 +47,7 @@
   .tn{font-family:'DM Mono',monospace;text-align:right}
   .cat-row td{background:var(--panel2);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.5px;color:var(--gold);padding:7px 12px}
   .tot-row td{background:rgba(200,16,46,.08);font-weight:600;font-family:'DM Mono',monospace;border-top:1px solid rgba(200,16,46,.3)}
-  .dp{color:var(--green);font-family:'DM Mono',monospace;font-size:12px}
-  .dn{color:#FF6B6B;font-family:'DM Mono',monospace;font-size:12px}
-  .dz{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px}
+  .dp{color:var(--green);font-family:'DM Mono',monospace;font-size:12px}.dn{color:#FF6B6B;font-family:'DM Mono',monospace;font-size:12px}.dz{color:var(--muted);font-family:'DM Mono',monospace;font-size:12px}
   .note-c{font-size:11px;color:var(--muted);max-width:180px}
   .bar-chart{display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
   .bar-row{display:grid;grid-template-columns:130px 1fr 100px;gap:10px;align-items:center}
@@ -70,21 +60,16 @@
   .und-card{background:var(--panel);border:1px solid var(--border);padding:18px}
   .und-card h3{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:8px}
   .und-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
-  .und-row .lbl{color:var(--muted)}
-  .und-n{font-family:'DM Mono',monospace;font-weight:600}
+  .und-row .lbl{color:var(--muted)}.und-n{font-family:'DM Mono',monospace;font-weight:600}
   .und-tot{display:flex;justify-content:space-between;padding:10px 0 0;margin-top:8px;border-top:1px solid var(--border);font-weight:600}
   .und-tot .und-n{color:var(--gold);font-size:18px}
   .load-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
   .spinner{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .load-txt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:var(--muted)}
-  .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+  .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;line-height:2}
   footer{text-align:center;padding:20px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:28px}
-  @media(max-width:580px){
-    .page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}
-    .brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}
-    .cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}
-  }
+  @media(max-width:580px){.page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}.brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}.cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -108,13 +93,13 @@
 
 <div class="status-bar">
   <div class="s-dot spin" id="s-dot"></div>
-  <span class="s-text" id="s-text">Memuat data dari Google Sheets...</span>
+  <span class="s-text" id="s-text">Memuat data...</span>
   <span class="s-time" id="s-time"></span>
 </div>
 
 <div class="page active" id="page-overview">
   <div class="sec-title">Overview Budget</div>
-  <div id="ov-cards"><div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div></div>
+  <div id="ov-wrap"><div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div></div>
   <div class="sec-title" style="font-size:18px;margin-bottom:14px">Ideal vs Realisasi per Kategori</div>
   <div class="bar-chart" id="ov-chart"></div>
   <div class="sec-title" style="font-size:18px;margin-bottom:14px">Ringkasan Kategori</div>
@@ -123,7 +108,6 @@
     <tbody id="ov-tbl"></tbody>
   </table></div>
 </div>
-
 <div class="page" id="page-budget">
   <div class="sec-title">Rencana Anggaran</div>
   <div class="tbl-wrap"><table>
@@ -131,7 +115,6 @@
     <tbody id="bgt-tbl"></tbody>
   </table></div>
 </div>
-
 <div class="page" id="page-realisasi">
   <div class="sec-title">Realisasi Aktual</div>
   <div class="tbl-wrap"><table>
@@ -139,7 +122,6 @@
     <tbody id="real-tbl"></tbody>
   </table></div>
 </div>
-
 <div class="page" id="page-undangan">
   <div class="sec-title">Undangan &amp; Peserta</div>
   <div class="und-grid" id="und-grid"></div>
@@ -156,104 +138,107 @@
     </div>
   </div>
 </div>
-
 <footer>QCC Convention Dashboard FY2026 &middot; PAD PPIC &amp; Warehouse &middot; TMMIN Plant 1 &amp; 2</footer>
 
 <script>
-// ── URL GOOGLE SHEETS (hardcoded — tidak perlu diubah lagi) ──
+// ── URL GOOGLE SHEETS (hardcoded) ────────────────────────────
 const URL_BUDGET   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=585403350&single=true&output=csv';
 const URL_UNDANGAN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=1856762333&single=true&output=csv';
-// ────────────────────────────────────────────────────────────
+
+// Proxy list — dicoba satu per satu jika gagal
+const PROXIES = [
+  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+  u => `https://cors-anywhere.herokuapp.com/${u}`,
+];
 
 let appData = { items:[], undangan:{} };
-
 const fmt  = n => 'Rp'+Math.round(n||0).toLocaleString('id-ID');
 const fmtS = n => { n=n||0; return n>=1000000?'Rp'+(n/1000000).toFixed(1)+'jt':n>=1000?'Rp'+(n/1000).toFixed(0)+'rb':'Rp'+n; };
 
-function setStatus(state, msg){
-  const dot=document.getElementById('s-dot'), txt=document.getElementById('s-text');
-  dot.className='s-dot';
-  if(state==='ok') dot.classList.add('ok');
-  else if(state==='err') dot.classList.add('err');
-  else dot.classList.add('spin');
+function setStatus(state,msg){
+  const dot=document.getElementById('s-dot'),txt=document.getElementById('s-text');
+  dot.className='s-dot'+(state==='ok'?' ok':state==='err'?' err':' spin');
   txt.textContent=msg;
 }
 
 // ── CSV PARSER ───────────────────────────────────────────────
 function parseCSV(text){
-  const lines = text.trim().split(/\r?\n/);
-  if(lines.length < 2) return [];
-  const headers = splitCSVLine(lines[0]);
-  return lines.slice(1).map(line => {
-    const vals = splitCSVLine(line);
-    const obj = {};
-    headers.forEach((h,i) => { obj[h.trim()] = (vals[i]||'').trim(); });
+  const lines=text.trim().split(/\r?\n/);
+  if(lines.length<2) return [];
+  const headers=splitLine(lines[0]);
+  return lines.slice(1).map(line=>{
+    const vals=splitLine(line),obj={};
+    headers.forEach((h,i)=>{ obj[h.trim().toLowerCase()]=(vals[i]||'').trim(); });
     return obj;
-  }).filter(r => Object.values(r).some(v => v !== ''));
+  }).filter(r=>Object.values(r).some(v=>v!==''));
+}
+function splitLine(line){
+  const r=[],re=/("([^"]*)"|([^,]*))(,|$)/g;let m;
+  while((m=re.exec(line))!==null){r.push((m[2]!==undefined?m[2]:m[3])||'');if(m[4]==='')break;}
+  return r;
 }
 
-function splitCSVLine(line){
-  const result=[], re=/("([^"]*)"|([^,]*))(,|$)/g;
-  let m;
-  while((m=re.exec(line))!==null){
-    result.push((m[2]!==undefined?m[2]:m[3])||'');
-    if(m[4]==='') break;
+// ── FETCH — coba langsung dulu, fallback ke proxy ────────────
+async function fetchWithFallback(url){
+  // 1. Coba langsung (kadang berhasil jika CORS diizinkan)
+  try {
+    const r=await fetch(url,{mode:'cors'});
+    if(r.ok){ const t=await r.text(); if(t.includes(',')) return t; }
+  } catch(e){}
+
+  // 2. Coba tiap proxy
+  for(const proxy of PROXIES){
+    try{
+      const r=await fetch(proxy(url));
+      if(r.ok){ const t=await r.text(); if(t.includes(',')) return t; }
+    } catch(e){}
   }
-  return result;
-}
-
-// ── FETCH CSV ────────────────────────────────────────────────
-async function fetchCSV(url){
-  // Google Sheets published CSV sudah support CORS — fetch langsung
-  const res = await fetch(url);
-  if(!res.ok) throw new Error('HTTP '+res.status);
-  return await res.text();
+  throw new Error('Semua proxy gagal. Pastikan Sheets sudah di-Publish to web.');
 }
 
 // ── LOAD DATA ────────────────────────────────────────────────
 async function loadData(){
   setStatus('spin','Memuat data dari Google Sheets...');
-  try {
-    const [csvBudget, csvUnd] = await Promise.all([
-      fetchCSV(URL_BUDGET),
-      fetchCSV(URL_UNDANGAN)
-    ]);
+  document.getElementById('ov-wrap').innerHTML='<div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div>';
+  try{
+    const [csvB,csvU]=await Promise.all([fetchWithFallback(URL_BUDGET),fetchWithFallback(URL_UNDANGAN)]);
 
-    // Parse budget items
-    // Kolom Google Sheets: cat | item | qty | price | actual | note
-    appData.items = parseCSV(csvBudget).map(r => ({
-      cat:    r.cat    || r.Cat    || '',
-      item:   r.item   || r.Item   || '',
-      qty:    parseFloat((r.qty   ||r.Qty  ||'0').replace(/[^0-9.-]/g,''))||0,
-      price:  parseFloat((r.price ||r.Price||'0').replace(/[^0-9.-]/g,''))||0,
-      actual: parseFloat((r.actual||r.Actual||'0').replace(/[^0-9.-]/g,''))||0,
-      note:   r.note   || r.Note   || ''
-    })).filter(r => r.item && r.cat);
+    appData.items=parseCSV(csvB).map(r=>({
+      cat:   r.cat||'',
+      item:  r.item||'',
+      qty:   parseFloat((r.qty||'0').replace(/[^0-9.]/g,''))||0,
+      price: parseFloat((r.price||'0').replace(/[^0-9.]/g,''))||0,
+      actual:parseFloat((r.actual||'0').replace(/[^0-9.]/g,''))||0,
+      note:  r.note||''
+    })).filter(r=>r.item&&r.cat);
 
-    // Parse undangan
-    // Kolom Google Sheets: group | label | val
-    const undRows = parseCSV(csvUnd);
-    appData.undangan = {};
-    undRows.forEach(r => {
-      const g = (r.group||r.Group||'').toLowerCase().trim();
-      const l = r.label||r.Label||r.key||'';
-      const v = parseFloat((r.val||r.Val||r.value||'0').replace(/[^0-9.-]/g,''))||0;
+    appData.undangan={};
+    parseCSV(csvU).forEach(r=>{
+      const g=(r.group||'').toLowerCase().trim();
+      const l=r.label||r.key||'';
+      const v=parseFloat((r.val||r.value||'0').replace(/[^0-9.]/g,''))||0;
       if(!g||!l) return;
       if(!appData.undangan[g]) appData.undangan[g]=[];
-      appData.undangan[g].push({label:l, val:v});
+      appData.undangan[g].push({label:l,val:v});
     });
 
-    const now = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+    const now=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
     setStatus('ok','Live dari Google Sheets');
     document.getElementById('s-time').textContent='Update: '+now;
     renderAll();
-  } catch(e) {
+  } catch(e){
     setStatus('err','Gagal memuat — '+e.message);
-    document.getElementById('ov-cards').innerHTML=`<div class="err-wrap">Gagal memuat data.<br><small style="color:var(--muted)">${e.message}</small><br><br><button onclick="loadData()" style="margin-top:8px;padding:8px 16px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:DM Sans,sans-serif">Coba Lagi</button></div>`;
+    document.getElementById('ov-wrap').innerHTML=`<div class="err-wrap">
+      Gagal memuat data dari Google Sheets.<br>
+      <small>${e.message}</small><br>
+      <strong style="color:var(--gold)">Pastikan Sheets sudah di-publish:</strong><br>
+      <small>File → Share → Publish to web → CSV</small><br><br>
+      <button onclick="loadData()" style="padding:8px 20px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:13px">↻ Coba Lagi</button>
+    </div>`;
   }
 }
 
-// ── NAVIGATION ───────────────────────────────────────────────
 function showPage(name,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
@@ -261,7 +246,6 @@ function showPage(name,el){
   el.classList.add('active');
 }
 
-// ── HELPERS ──────────────────────────────────────────────────
 function getCatTotals(){
   const c={};
   appData.items.forEach(d=>{
@@ -272,19 +256,17 @@ function getCatTotals(){
   return c;
 }
 
-// ── OVERVIEW ─────────────────────────────────────────────────
 function renderOverview(){
   const ct=getCatTotals();
   const gi=Object.values(ct).reduce((s,c)=>s+c.ideal,0);
   const ga=Object.values(ct).reduce((s,c)=>s+c.actual,0);
-  const sisa=gi-ga, pct=gi>0?(ga/gi*100).toFixed(1):0;
-  document.getElementById('ov-cards').innerHTML=`
-    <div class="cards">
-      <div class="card"><div class="c-label">Total Ideal Budget</div><div class="c-val">${fmt(gi)}</div><div class="c-sub">Rencana anggaran FY26</div></div>
-      <div class="card"><div class="c-label">Total Realisasi</div><div class="c-val" style="color:var(--gold)">${fmt(ga)}</div><div class="c-sub">${pct}% terserap</div><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div></div>
-      <div class="card"><div class="c-label">Sisa Anggaran</div><div class="c-val" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div><div class="c-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div><div class="pill ${sisa>=0?'pill-g':'pill-r'}">${sisa>=0?'Hemat':'Over'}</div></div>
-      <div class="card"><div class="c-label">Jumlah Item</div><div class="c-val">${appData.items.length}</div><div class="c-sub">${Object.keys(ct).length} kategori</div></div>
-    </div>`;
+  const sisa=gi-ga,pct=gi>0?(ga/gi*100).toFixed(1):0;
+  document.getElementById('ov-wrap').innerHTML=`<div class="cards">
+    <div class="card"><div class="c-label">Total Ideal Budget</div><div class="c-val">${fmt(gi)}</div><div class="c-sub">Rencana anggaran FY26</div></div>
+    <div class="card"><div class="c-label">Total Realisasi</div><div class="c-val" style="color:var(--gold)">${fmt(ga)}</div><div class="c-sub">${pct}% terserap</div><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min(pct,100)}%;background:var(--gold)"></div></div></div>
+    <div class="card"><div class="c-label">Sisa Anggaran</div><div class="c-val" style="color:${sisa>=0?'var(--green)':'#FF6B6B'}">${fmt(Math.abs(sisa))}</div><div class="c-sub">${sisa>=0?'Efisiensi':'Melebihi anggaran'}</div><div class="pill ${sisa>=0?'pill-g':'pill-r'}">${sisa>=0?'Hemat':'Over'}</div></div>
+    <div class="card"><div class="c-label">Jumlah Item</div><div class="c-val">${appData.items.length}</div><div class="c-sub">${Object.keys(ct).length} kategori</div></div>
+  </div>`;
   const maxV=Math.max(...Object.values(ct).map(c=>c.ideal),1);
   document.getElementById('ov-chart').innerHTML=Object.entries(ct).map(([cat,v])=>{
     const iw=(v.ideal/maxV*100).toFixed(1),aw=(v.actual/maxV*100).toFixed(1);
@@ -299,16 +281,13 @@ function renderOverview(){
       <td class="tn">${has?fmt(v.actual):'<span style="color:var(--muted)">&#8212;</span>'}</td>
       <td class="tn ${has?(d>=0?'dp':'dn'):'dz'}">${has?(d>=0?'+':'')+fmt(d):'&#8212;'}</td>
       <td>${has?`<span class="pill ${p<=100?'pill-g':'pill-r'}">${p}%</span>`:'<span class="pill pill-o">Pending</span>'}</td></tr>`;
-  }).join('')+`<tr class="tot-row"><td>GRAND TOTAL</td>
-    <td class="tn">${fmt(gi)}</td><td class="tn">${fmt(ga)}</td>
+  }).join('')+`<tr class="tot-row"><td>GRAND TOTAL</td><td class="tn">${fmt(gi)}</td><td class="tn">${fmt(ga)}</td>
     <td class="tn ${sisa>=0?'dp':'dn'}">${sisa>=0?'+':''}${fmt(sisa)}</td>
     <td><span class="pill ${pct<=100?'pill-g':'pill-r'}">${pct}%</span></td></tr>`;
 }
 
-// ── ANGGARAN ─────────────────────────────────────────────────
 function renderBudget(){
-  const cats=[...new Set(appData.items.map(d=>d.cat))];
-  let h='';
+  const cats=[...new Set(appData.items.map(d=>d.cat))];let h='';
   cats.forEach(cat=>{
     h+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
     appData.items.filter(d=>d.cat===cat).forEach(d=>{
@@ -316,18 +295,14 @@ function renderBudget(){
         <td class="tn">${fmt(d.price)}</td><td class="tn" style="color:var(--gold)">${fmt(d.qty*d.price)}</td>
         <td class="note-c">${d.note||'&#8212;'}</td></tr>`;
     });
-    const ct=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
-    h+=`<tr class="tot-row"><td>Total ${cat}</td><td></td><td></td><td class="tn">${fmt(ct)}</td><td></td></tr>`;
+    h+=`<tr class="tot-row"><td>Total ${cat}</td><td></td><td></td><td class="tn">${fmt(appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0))}</td><td></td></tr>`;
   });
-  const grand=appData.items.reduce((s,d)=>s+d.qty*d.price,0);
-  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td colspan="3"><strong>GRAND TOTAL</strong></td><td class="tn" style="color:var(--red-light);font-size:15px">${fmt(grand)}</td><td></td></tr>`;
+  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td colspan="3"><strong>GRAND TOTAL</strong></td><td class="tn" style="color:var(--red-light);font-size:15px">${fmt(appData.items.reduce((s,d)=>s+d.qty*d.price,0))}</td><td></td></tr>`;
   document.getElementById('bgt-tbl').innerHTML=h;
 }
 
-// ── REALISASI ────────────────────────────────────────────────
 function renderReal(){
-  const cats=[...new Set(appData.items.map(d=>d.cat))];
-  let h='';
+  const cats=[...new Set(appData.items.map(d=>d.cat))];let h='';
   cats.forEach(cat=>{
     h+=`<tr class="cat-row"><td colspan="5">${cat}</td></tr>`;
     appData.items.filter(d=>d.cat===cat).forEach(d=>{
@@ -335,10 +310,7 @@ function renderReal(){
       h+=`<tr><td>${d.item}</td><td class="tn">${fmt(ideal)}</td>
         <td class="tn" style="${d.actual>0?'color:var(--gold)':'color:var(--muted)'}">${d.actual>0?fmt(d.actual):'&#8212;'}</td>
         <td class="tn ${d.actual>0?(delta>=0?'dp':'dn'):'dz'}">${d.actual>0?(delta>=0?'+':'')+fmt(delta):'&#8212;'}</td>
-        <td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px">
-          <div class="pbar-bg" style="width:80px;display:inline-block"><div class="pbar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div></div>
-          <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${pct}%</span></div>`
-          :'<span style="color:var(--muted);font-size:11px">Pending</span>'}</td></tr>`;
+        <td>${pct!==null?`<div style="display:flex;align-items:center;gap:8px"><div class="pbar-bg" style="width:80px;display:inline-block"><div class="pbar-fill" style="width:${Math.min(parseFloat(pct),100)}%;background:${parseFloat(pct)>100?'var(--orange)':'var(--green)'}"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">${pct}%</span></div>`:'<span style="color:var(--muted);font-size:11px">Pending</span>'}</td></tr>`;
     });
     const ci=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.qty*d.price,0);
     const ca=appData.items.filter(d=>d.cat===cat).reduce((s,d)=>s+d.actual,0),cd=ci-ca;
@@ -347,24 +319,22 @@ function renderReal(){
       <td><span class="pill ${ci>0&&ca/ci*100<=100?'pill-g':'pill-r'}">${ci>0?(ca/ci*100).toFixed(1):0}%</span></td></tr>`;
   });
   const gi=appData.items.reduce((s,d)=>s+d.qty*d.price,0),ga=appData.items.reduce((s,d)=>s+d.actual,0),gd=gi-ga;
-  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td><strong>GRAND TOTAL</strong></td>
-    <td class="tn">${fmt(gi)}</td><td class="tn" style="color:var(--gold)">${fmt(ga)}</td>
+  h+=`<tr class="tot-row" style="background:rgba(200,16,46,.15)"><td><strong>GRAND TOTAL</strong></td><td class="tn">${fmt(gi)}</td>
+    <td class="tn" style="color:var(--gold)">${fmt(ga)}</td>
     <td class="tn ${gd>=0?'dp':'dn'}">${gd>=0?'+':''}${fmt(gd)}</td>
     <td><span class="pill ${gi>0&&ga/gi*100<=100?'pill-g':'pill-r'}">${gi>0?(ga/gi*100).toFixed(1):0}%</span></td></tr>`;
   document.getElementById('real-tbl').innerHTML=h;
 }
 
-// ── UNDANGAN ─────────────────────────────────────────────────
 function renderUndangan(){
   const u=appData.undangan;
   const groups=[{key:'mgmt',label:'Management'},{key:'peserta',label:'Peserta'},{key:'panitia',label:'Panitia'}];
   let totAll=0;
   document.getElementById('und-grid').innerHTML=groups.map(g=>{
-    const rows=u[g.key]||[],tot=rows.reduce((s,r)=>s+r.val,0);
-    totAll+=tot;
+    const rows=u[g.key]||[],tot=rows.reduce((s,r)=>s+r.val,0);totAll+=tot;
     return `<div class="und-card"><h3>${g.label}</h3>
       ${rows.map(r=>`<div class="und-row"><span class="lbl">${r.label}</span><span class="und-n">${r.val}</span></div>`).join('')}
-      ${rows.length===0?'<div style="color:var(--muted);font-size:12px;padding:8px 0;text-align:center">Belum ada data</div>':''}
+      ${!rows.length?'<div style="color:var(--muted);font-size:12px;padding:8px 0;text-align:center">Belum ada data</div>':''}
       <div class="und-tot"><span>Total</span><span class="und-n">${tot}</span></div></div>`;
   }).join('');
   const tots=groups.map(g=>(u[g.key]||[]).reduce((s,r)=>s+r.val,0));
@@ -374,11 +344,8 @@ function renderUndangan(){
   document.getElementById('tot-n').textContent=tots[2];
 }
 
-function renderAll(){
-  renderOverview(); renderBudget(); renderReal(); renderUndangan();
-}
+function renderAll(){ renderOverview();renderBudget();renderReal();renderUndangan(); }
 
-// ── INIT ─────────────────────────────────────────────────────
 loadData();
 </script>
 </body>
