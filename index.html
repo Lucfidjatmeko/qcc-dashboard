@@ -16,13 +16,11 @@
   .brand-text p{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
   .nav-tabs{display:flex;align-items:center;flex:1}
   .nav-tab{padding:10px 15px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
-  .nav-tab:hover{color:var(--text)}
-  .nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+  .nav-tab:hover{color:var(--text)}.nav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
   .fy-badge{margin-left:auto;align-self:center;background:var(--red);color:white;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:4px 12px;border-radius:2px;flex-shrink:0}
   .status-bar{display:flex;align-items:center;gap:8px;padding:7px 24px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:11px}
   .s-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--orange);transition:background .3s}
-  .s-dot.ok{background:var(--green)}.s-dot.err{background:#FF6B6B}
-  .s-dot.spin{background:var(--orange);animation:blink .8s infinite}
+  .s-dot.ok{background:var(--green)}.s-dot.err{background:#FF6B6B}.s-dot.spin{background:var(--orange);animation:blink .8s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
   .s-text{color:var(--muted)}.s-time{margin-left:auto;color:var(--border);font-family:'DM Mono',monospace;font-size:10px}
   .page{display:none;padding:24px;max-width:1300px;margin:0 auto}.page.active{display:block}
@@ -67,7 +65,7 @@
   .spinner{width:30px;height:30px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .7s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .load-txt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:var(--muted)}
-  .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;line-height:2}
+  .err-wrap{text-align:center;padding:40px;color:var(--muted);font-size:13px;line-height:2.2}
   footer{text-align:center;padding:20px;color:var(--border);font-size:11px;letter-spacing:1px;border-top:1px solid var(--border);margin-top:28px}
   @media(max-width:580px){.page{padding:14px}.header{padding:0 12px}.status-bar{padding:7px 12px}.brand-text p{display:none}.bar-row{grid-template-columns:70px 1fr 65px}.cards{grid-template-columns:1fr 1fr}.nav-tab{padding:10px 10px;font-size:12px}}
 </style>
@@ -141,16 +139,8 @@
 <footer>QCC Convention Dashboard FY2026 &middot; PAD PPIC &amp; Warehouse &middot; TMMIN Plant 1 &amp; 2</footer>
 
 <script>
-// ── URL GOOGLE SHEETS (hardcoded) ────────────────────────────
-const URL_BUDGET   = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=585403350&single=true&output=csv';
-const URL_UNDANGAN = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQJ7lp0wdXd321UVLqly5ABbpU-xxoh_vOtOHwG5rcJnivxuF1FusVdjHHr5ReqWFhAcoftqGrUzyHs/pub?gid=1856762333&single=true&output=csv';
-
-// Proxy list — dicoba satu per satu jika gagal
-const PROXIES = [
-  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-  u => `https://cors-anywhere.herokuapp.com/${u}`,
-];
+// ── Apps Script URL (relay dari Google Sheets, no CORS issue) ─
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyl_xNoxFFw7IMtsklIxTgOv3YF5r6TrsSeUag7YGoARMBJ3-8PGrVEMCrukaZfSN6w/exec';
 
 let appData = { items:[], undangan:{} };
 const fmt  = n => 'Rp'+Math.round(n||0).toLocaleString('id-ID');
@@ -162,62 +152,48 @@ function setStatus(state,msg){
   txt.textContent=msg;
 }
 
-// ── CSV PARSER ───────────────────────────────────────────────
-function parseCSV(text){
-  const lines=text.trim().split(/\r?\n/);
-  if(lines.length<2) return [];
-  const headers=splitLine(lines[0]);
-  return lines.slice(1).map(line=>{
-    const vals=splitLine(line),obj={};
-    headers.forEach((h,i)=>{ obj[h.trim().toLowerCase()]=(vals[i]||'').trim(); });
+// ── PARSE ROWS FROM SHEETS (array of arrays) ─────────────────
+// Format dari GAS: [[header1,header2,...],[val1,val2,...],...]
+function parseRows(rows){
+  if(!rows||rows.length<2) return [];
+  const headers = rows[0].map(h=>String(h).trim().toLowerCase());
+  return rows.slice(1).map(row=>{
+    const obj={};
+    headers.forEach((h,i)=>{ obj[h]=String(row[i]||'').trim(); });
     return obj;
   }).filter(r=>Object.values(r).some(v=>v!==''));
 }
-function splitLine(line){
-  const r=[],re=/("([^"]*)"|([^,]*))(,|$)/g;let m;
-  while((m=re.exec(line))!==null){r.push((m[2]!==undefined?m[2]:m[3])||'');if(m[4]==='')break;}
-  return r;
-}
 
-// ── FETCH — coba langsung dulu, fallback ke proxy ────────────
-async function fetchWithFallback(url){
-  // 1. Coba langsung (kadang berhasil jika CORS diizinkan)
-  try {
-    const r=await fetch(url,{mode:'cors'});
-    if(r.ok){ const t=await r.text(); if(t.includes(',')) return t; }
-  } catch(e){}
+function toNum(s){ return parseFloat(String(s).replace(/[^0-9.-]/g,''))||0; }
 
-  // 2. Coba tiap proxy
-  for(const proxy of PROXIES){
-    try{
-      const r=await fetch(proxy(url));
-      if(r.ok){ const t=await r.text(); if(t.includes(',')) return t; }
-    } catch(e){}
-  }
-  throw new Error('Semua proxy gagal. Pastikan Sheets sudah di-Publish to web.');
-}
-
-// ── LOAD DATA ────────────────────────────────────────────────
+// ── LOAD DATA FROM GAS ───────────────────────────────────────
 async function loadData(){
   setStatus('spin','Memuat data dari Google Sheets...');
   document.getElementById('ov-wrap').innerHTML='<div class="load-wrap"><div class="spinner"></div><div class="load-txt">Memuat...</div></div>';
   try{
-    const [csvB,csvU]=await Promise.all([fetchWithFallback(URL_BUDGET),fetchWithFallback(URL_UNDANGAN)]);
+    const res = await fetch(GAS_URL);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
 
-    appData.items=parseCSV(csvB).map(r=>({
-      cat:   r.cat||'',
-      item:  r.item||'',
-      qty:   parseFloat((r.qty||'0').replace(/[^0-9.]/g,''))||0,
-      price: parseFloat((r.price||'0').replace(/[^0-9.]/g,''))||0,
-      actual:parseFloat((r.actual||'0').replace(/[^0-9.]/g,''))||0,
-      note:  r.note||''
+    // Parse BudgetItems
+    // Kolom yang diharapkan: cat, item, qty, price, actual, note
+    const budgetRows = parseRows(json.budget||[]);
+    appData.items = budgetRows.map(r=>({
+      cat:    r.cat||r.category||'',
+      item:   r.item||r.nama||'',
+      qty:    toNum(r.qty||r.quantity||0),
+      price:  toNum(r.price||r.harga||0),
+      actual: toNum(r.actual||r.aktual||0),
+      note:   r.note||r.catatan||''
     })).filter(r=>r.item&&r.cat);
 
+    // Parse Undangan
+    // Kolom yang diharapkan: group, label, val
     appData.undangan={};
-    parseCSV(csvU).forEach(r=>{
-      const g=(r.group||'').toLowerCase().trim();
-      const l=r.label||r.key||'';
-      const v=parseFloat((r.val||r.value||'0').replace(/[^0-9.]/g,''))||0;
+    parseRows(json.undangan||[]).forEach(r=>{
+      const g=(r.group||r.grup||'').toLowerCase().trim();
+      const l=r.label||r.nama||'';
+      const v=toNum(r.val||r.value||r.jumlah||0);
       if(!g||!l) return;
       if(!appData.undangan[g]) appData.undangan[g]=[];
       appData.undangan[g].push({label:l,val:v});
@@ -227,14 +203,13 @@ async function loadData(){
     setStatus('ok','Live dari Google Sheets');
     document.getElementById('s-time').textContent='Update: '+now;
     renderAll();
+
   } catch(e){
     setStatus('err','Gagal memuat — '+e.message);
     document.getElementById('ov-wrap').innerHTML=`<div class="err-wrap">
-      Gagal memuat data dari Google Sheets.<br>
-      <small>${e.message}</small><br>
-      <strong style="color:var(--gold)">Pastikan Sheets sudah di-publish:</strong><br>
-      <small>File → Share → Publish to web → CSV</small><br><br>
-      <button onclick="loadData()" style="padding:8px 20px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:13px">↻ Coba Lagi</button>
+      Gagal memuat data.<br>
+      <small style="color:var(--muted)">${e.message}</small><br>
+      <button onclick="loadData()" style="margin-top:12px;padding:8px 20px;background:var(--red);border:none;color:white;cursor:pointer;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:13px">&#8635; Coba Lagi</button>
     </div>`;
   }
 }
@@ -249,7 +224,7 @@ function showPage(name,el){
 function getCatTotals(){
   const c={};
   appData.items.forEach(d=>{
-    if(!c[d.cat]) c[d.cat]={ideal:0,actual:0};
+    if(!c[d.cat])c[d.cat]={ideal:0,actual:0};
     c[d.cat].ideal+=(d.qty*d.price)||0;
     c[d.cat].actual+=d.actual||0;
   });
